@@ -3,7 +3,7 @@
 import { createListing } from "@/lib/actions/listing.action";
 import { useState } from "react";
 
-export default function page() {
+export default function AddListing() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -25,9 +25,6 @@ export default function page() {
       <form>
         <label htmlFor="title">Title:</label>
         <input
-          type="text"
-          id="title"
-          name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
@@ -37,11 +34,8 @@ export default function page() {
 
         <label htmlFor="description">Description:</label>
         <textarea
-          id="description"
-          name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          rows={4}
           required
         ></textarea>
 
