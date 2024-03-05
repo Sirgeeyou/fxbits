@@ -8,14 +8,10 @@ export default function AddListing() {
   const [description, setDescription] = useState("");
 
   const handleSubmit = () => {
-    // You can use 'title' and 'description' in your logic here
     console.log("Title:", title);
     console.log("Description:", description);
 
-    // You can call your createListing function here with the form values
     createListing(title, description);
-
-    // Optionally, you can reset the form fields after submission
     setTitle("");
     setDescription("");
   };

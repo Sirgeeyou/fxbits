@@ -1,5 +1,6 @@
 "use server";
-import supabase from "@/services/supabase";
+
+import { supabase } from "../supabase";
 
 export async function createListing(title: string, description: string) {
   const { data, error } = await supabase

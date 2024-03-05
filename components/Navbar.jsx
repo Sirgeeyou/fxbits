@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Navbar() {
+export default async function Navbar() {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -9,7 +9,7 @@ export default function Navbar() {
           daisyUI
         </Link>
       </div>
-      <div className="flex-none">
+      <div className="flex-none gap-5">
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
             <div className="indicator">
@@ -74,11 +74,13 @@ export default function Navbar() {
               <Link href="/addlisting">Add Listing</Link>
             </li>
             <li>
-              <a>Logout</a>
+              <button className="btn btn-primary">Logout</button>
             </li>
           </ul>
         </div>
       </div>
+
+      <button className="btn btn-primary">Login</button>
     </div>
   );
 }
