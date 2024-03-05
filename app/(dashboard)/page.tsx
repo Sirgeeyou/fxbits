@@ -1,14 +1,8 @@
-import { supabase } from "@/lib/supabase";
-import { useEffect } from "react";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
-export default function Home() {
-  const getSession = async () => {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    console.log(session);
-  };
-
+export default async function Home() {
+  const supabase = createServerComponentClient({ cookies });
   return (
     <div>
       <h1 className="text-sky-400">Market Place</h1>

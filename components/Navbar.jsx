@@ -1,7 +1,15 @@
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Navbar() {
+  const supabase = createServerComponentClient({ cookies });
+  const { data: userSession } = await supabase.auth.getSession();
+  console.log(
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    userSession.session
+  );
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -46,41 +54,47 @@ export default async function Navbar() {
             </div>
           </div>
         </div>
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="avatar btn btn-circle btn-ghost"
-          >
-            <div className="w-10 rounded-full">
-              <Image
-                alt="Tailwind CSS Navbar component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                width={150}
-                height={150}
-                unoptimized
-              />
+        {userSession.session ? (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="avatar btn btn-circle btn-ghost"
+            >
+              <div className="w-10 rounded-full">
+                <Image
+                  alt="Tailwind CSS Navbar component"
+                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  width={150}
+                  height={150}
+                  unoptimized
+                />
+              </div>
             </div>
+
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+            >
+              <li>
+                <Link href="/profile">Profile</Link>
+              </li>
+              <li>
+                <Link href="/addlisting">Add Listing</Link>
+              </li>
+              <li>
+                <Link href="/auth/logout" className="btn btn-primary">
+                  Logout
+                </Link>
+              </li>
+            </ul>
           </div>
-
-          <ul
-            tabIndex={0}
-            className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
-          >
-            <li>
-              <Link href="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link href="/addlisting">Add Listing</Link>
-            </li>
-            <li>
-              <button className="btn btn-primary">Logout</button>
-            </li>
-          </ul>
-        </div>
+        ) : (
+          <Link href="/login" className="btn btn-primary">
+            Login
+          </Link>
+        )}
       </div>
-
-      <button className="btn btn-primary">Login</button>
     </div>
   );
 }

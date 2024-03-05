@@ -4,28 +4,20 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res });
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data, error } = await supabase.auth.getSession();
 
-  // console.log(req.nextUrl.pathname);
+  console.log(req.nextUrl.pathname);
 
-  if (!session) {
+  if (!data) {
     return NextResponse.rewrite(new URL("/login", req.url));
   }
-  // console.log(session);
+  if (error) {
+    console.log(error);
+  }
+  console.log(data);
   return res;
 }
 
 export const config = {
-  matchers: [
-    {
-      path: ["/((?!_next/static|_next/image|favicon.ico|^/$).*)"],
-      handler: middleware,
-    },
-    {
-      path: "/profile",
-      handler: middleware,
-    },
-  ],
+  matchers: [],
 };
