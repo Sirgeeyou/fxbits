@@ -2,11 +2,9 @@
 import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 import Link from "next/link";
+import Logout from "./LogoutButton";
 
 export default function Navbar({ user }) {
-  function signOut() {
-    supabase.auth.signOut();
-  }
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -80,11 +78,7 @@ export default function Navbar({ user }) {
                 <Link href="/addlisting">Add Listing</Link>
               </li>
               <li>
-                <form method="post" action="/auth/logout">
-                  <button type="submit" className="btn btn-primary">
-                    Logout
-                  </button>
-                </form>
+                <Logout />
               </li>
             </ul>
           </div>
