@@ -1,8 +1,15 @@
 "use client";
 import React from "react";
 import { FloatingNav } from "./ui/floating-navbar";
-import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
-export default function FloatingNavDemo({ user }) {
+import { IconHome, IconMessage } from "@tabler/icons-react";
+import { User } from "@/types/types";
+
+type NavbarProps = {
+  user: User | null;
+};
+
+export default function Navbar({ user }: NavbarProps): React.JSX.Element {
+  console.log("Navbar user: ", user);
   const navItems = [
     {
       name: "Home",

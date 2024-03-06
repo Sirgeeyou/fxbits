@@ -6,6 +6,15 @@ type Listing = {
   description: string;
   category: string;
   short_description: string;
+  key: number;
 };
 
-export type { Listing };
+type User = {
+  user?: {
+    id?: string;
+    role?: string;
+    email?: string;
+  } | null;
+};
+
+export type { Listing, User };

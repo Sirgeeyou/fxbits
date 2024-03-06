@@ -21,7 +21,7 @@ export const FloatingNav = ({
     icon?: React.JSX.Element;
   }[];
   className?: string;
-  user: object | null;
+  user: any;
 }) => {
   const { scrollYProgress } = useScroll();
 
@@ -74,7 +74,7 @@ export const FloatingNav = ({
             <span className="hidden text-sm sm:block">{navItem.name}</span>
           </Link>
         ))}
-        {user.user ? (
+        {user?.user ? (
           <Logout />
         ) : (
           <Link
