@@ -1,15 +1,13 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+"use client";
+import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Navbar() {
-  const supabase = createServerComponentClient({ cookies });
-  const { data: userSession } = await supabase.auth.getSession();
-  console.log(
-    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
-    userSession.session
-  );
+export default function Navbar() {
+  function signOut() {
+    supabase.auth.signOut();
+  }
+  const userSession = true;
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -54,7 +52,7 @@ export default async function Navbar() {
             </div>
           </div>
         </div>
-        {userSession.session ? (
+        {userSession ? (
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -83,7 +81,12 @@ export default async function Navbar() {
                 <Link href="/addlisting">Add Listing</Link>
               </li>
               <li>
-                <Link href="/auth/logout" className="btn btn-primary">
+                <Link
+                  href={"/auth/logout"}
+                  method="post"
+                  onClick={signOut}
+                  className="btn btn-primary"
+                >
                   Logout
                 </Link>
               </li>

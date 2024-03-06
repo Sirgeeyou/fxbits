@@ -5,6 +5,13 @@ import ".././global.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// const supabase = createServerComponentClient({ cookies });
+// const { data: userSession } = await supabase.auth.getSession();
+// console.log(
+//   "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+//   userSession.session
+// );
+
 export default function RootLayout({
   children,
 }: Readonly<{

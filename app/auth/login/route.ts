@@ -1,6 +1,7 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import toast from "react-hot-toast";
 
 export async function POST(req: NextRequest) {
   const url = new URL(req.url);
@@ -18,9 +19,12 @@ export async function POST(req: NextRequest) {
     email,
     password,
   });
-
-  if (data) console.log(data);
-  if (error) console.log(error);
+  console.log("email", email);
+  console.log("password", password);
+  if (data) console.log("Login route:", data);
+  if (error) {
+    console.log(error);
+  }
   return NextResponse.redirect(url.origin, {
     status: 301,
   });

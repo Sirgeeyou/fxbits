@@ -6,18 +6,16 @@ export async function middleware(req: NextRequest) {
   const supabase = createMiddlewareClient({ req, res });
   const { data, error } = await supabase.auth.getSession();
 
-  console.log(req.nextUrl.pathname);
-
   if (!data) {
     return NextResponse.rewrite(new URL("/login", req.url));
   }
   if (error) {
     console.log(error);
   }
-  console.log(data);
+  console.log("Middleware: @@@@@@@@@@@@@@@@@@@@@@@@@@@", data);
   return res;
 }
 
 export const config = {
-  matchers: [],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|).*)"],
 };

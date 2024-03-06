@@ -43,9 +43,9 @@ export const SignUpForm = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <input type="password" className="grow" />
+              <input type="password" className="grow" name="password" />
             </label>
-            <button className="btn btn-primary">Login</button>
+            <button className="btn btn-primary">Sign Up</button>
           </div>
         </form>
       </div>
