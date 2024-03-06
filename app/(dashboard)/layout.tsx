@@ -2,25 +2,26 @@ import { Inter } from "next/font/google";
 import React from "react";
 import Navbar from "../../components/Navbar";
 import ".././global.css";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// const supabase = createServerComponentClient({ cookies });
-// const { data: userSession } = await supabase.auth.getSession();
-// console.log(
-//   "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
-//   userSession.session
-// );
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createServerComponentClient({ cookies });
+  const { data: user } = await supabase.auth.getUser();
+  console.log(
+    "Layout@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    user
+  );
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
+        <Navbar user={user} />
         {children}
       </body>
     </html>

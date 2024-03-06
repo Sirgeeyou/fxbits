@@ -1,7 +1,6 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import toast from "react-hot-toast";
 
 export async function POST(req: NextRequest) {
   const url = new URL(req.url);

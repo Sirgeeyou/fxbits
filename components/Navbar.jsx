@@ -3,11 +3,10 @@ import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Navbar() {
+export default function Navbar({ user }) {
   function signOut() {
     supabase.auth.signOut();
   }
-  const userSession = true;
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -52,7 +51,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-        {userSession ? (
+        {user.user ? (
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -81,14 +80,11 @@ export default function Navbar() {
                 <Link href="/addlisting">Add Listing</Link>
               </li>
               <li>
-                <Link
-                  href={"/auth/logout"}
-                  method="post"
-                  onClick={signOut}
-                  className="btn btn-primary"
-                >
-                  Logout
-                </Link>
+                <form method="post" action="/auth/logout">
+                  <button type="submit" className="btn btn-primary">
+                    Logout
+                  </button>
+                </form>
               </li>
             </ul>
           </div>
