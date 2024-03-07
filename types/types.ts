@@ -6,7 +6,7 @@ type Listing = {
   description: string;
   category: string;
   short_description: string;
-  key: number;
+  key?: number;
 };
 
 type User = {

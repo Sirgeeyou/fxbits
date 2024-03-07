@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
 import { getListings } from "@/services/apiListings";
 import { Listing } from "@/types/types";
+import Image from "next/image";
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   const [listingImages, setListingImages] = useState<Array<Listing>>([]);
@@ -56,7 +57,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="pointer-events-none absolute -left-[22px] -top-[14px] h-6 w-10 stroke-[1px] text-slate-700"
+                  className="pointer-events-none absolute -left-[22px] -top-[14px] h-6 w-10 stroke-[8px] text-slate-700"
                 >
                   <path
                     strokeLinecap="round"
@@ -66,13 +67,20 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                 </svg>
               ) : null}
 
-              {/* Image */}
-              <motion.img
-                src={getRandomImageUrl()}
-                alt={`image-${i}-${j}`}
-                className="absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-300"
-                whileHover={{ opacity: 1 }}
-              />
+              {getRandomImageUrl() && (
+                <motion.div
+                  className="absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-300"
+                  whileHover={{ opacity: 1 }}
+                >
+                  <Image
+                    src={getRandomImageUrl()}
+                    alt={`image-${i}-${j}`}
+                    height={700}
+                    width={700}
+                    quality={75}
+                  />
+                </motion.div>
+              )}
             </motion.div>
           ))}
         </motion.div>

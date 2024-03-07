@@ -3,7 +3,7 @@ import React from "react";
 export const SignUpForm = () => {
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Signup</h2>
       <div className="flex items-center justify-center ">
         <form action="/auth/signup" method="post">
           <div className="join join-vertical gap-6">

@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import Image from "next/image";
 import React, {
   createContext,
   useState,
@@ -37,7 +36,6 @@ export const CardContainer = ({
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsMouseEntered(true);
-    if (!containerRef.current) return;
   };
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
