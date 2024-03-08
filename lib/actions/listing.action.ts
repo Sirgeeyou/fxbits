@@ -1,5 +1,4 @@
-"use server";
-
+import { revalidatePath } from "next/cache";
 import { supabase } from "../supabase";
 
 export async function createListing(title: string, description: string) {
@@ -7,6 +6,8 @@ export async function createListing(title: string, description: string) {
     .from("listings")
     .insert([{ title, description }])
     .select();
+
+  revalidatePath("/");
 
   if (error) {
     console.error(error);

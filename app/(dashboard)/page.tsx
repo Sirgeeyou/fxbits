@@ -4,10 +4,12 @@ import BackgroundBoxes from "@/components/BackgroundBoxes";
 import { ThreeDCardDemo } from "@/components/Card";
 import { InfiniteMovingCardsDemo } from "@/components/MovingDiv";
 import SearchBar from "@/components/SearchBar";
+import Filter from "@/components/Filter";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const listings: Listing[] = await getListings({
     searchQuery: searchParams?.q,
+    filter: searchParams.filter,
   });
 
   console.log("LISTINGSSZZZ:", listings);
@@ -24,6 +26,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         <div className="mb-20">
           <SearchBar />
         </div>
+        <Filter />
 
         <div className="mt-10 flex flex-wrap justify-center gap-5">
           {listings.map((listing) => (

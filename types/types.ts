@@ -25,4 +25,9 @@ export interface SearchParams {
 export interface SearchParamsProps {
   searchParams: { [key: string]: string | undefined };
 }
+export interface FilterOptions {
+  name: string;
+  value: string;
+}
+
 export type { Listing, User };

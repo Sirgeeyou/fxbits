@@ -3,8 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 
-import { categories } from "@/constants/categories";
-
 export function InfiniteMovingCardsDemo() {
   return (
     <div className="dark:bg-grid-white/[0.05] relative flex h-[40rem] flex-col items-center justify-center overflow-hidden rounded-md bg-white antialiased dark:bg-black">
