@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase";
 
-export async function getListings(params: any) {
+export async function getListings(params: any = {}) {
   console.log("GetListing triggerd");
   const { searchQuery } = params;
 
@@ -8,10 +8,7 @@ export async function getListings(params: any) {
     const { data, error } = await supabase
       .from("listings")
       .select()
-      .textSearch("title", `${searchQuery}`, {
-        type: "websearch",
-        config: "english",
-      });
+      .ilike("title", `%${searchQuery}%`);
     if (error) {
       console.error(error);
       throw new Error("Listing could not be loaded");

@@ -7,7 +7,7 @@ import SearchBar from "@/components/SearchBar";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const listings: Listing[] = await getListings({
-    searchQuery: searchParams.q,
+    searchQuery: searchParams?.q,
   });
 
   console.log("LISTINGSSZZZ:", listings);
