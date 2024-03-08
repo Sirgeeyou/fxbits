@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
-import { getListings } from "@/services/apiListings";
+import { getListings } from "@/services/getListings";
 import { Listing } from "@/types/types";
 import Image from "next/image";
 

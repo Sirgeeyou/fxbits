@@ -23,13 +23,15 @@ export function ThreeDCardDemo({ listingData }: { listingData: Listing }) {
           <span>{listingData.short_description}</span>
         </CardItem>
         <CardItem translateZ="100" className="mt-4 w-full">
-          <Image
-            src={listingData.image}
-            height="1000"
-            width="1000"
-            className="h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl"
-            alt={listingData.title}
-          />
+          {listingData.image && (
+            <Image
+              src={listingData.image}
+              height="1000"
+              width="1000"
+              className="h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl"
+              alt={listingData.title}
+            />
+          )}
         </CardItem>
         <div className="mt-20 flex items-center justify-between">
           <CardItem

@@ -1,12 +1,11 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { Input } from "postcss";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const Inputz = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     return (
       <input
@@ -23,4 +22,4 @@ const Inputz = React.forwardRef<HTMLInputElement, InputProps>(
 );
 Input.displayName = "Input";
 
-export { Inputz };
+export { Input };

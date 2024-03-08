@@ -17,4 +17,12 @@ type User = {
   } | null;
 };
 
+export interface SearchParams {
+  query?: string | null;
+  type?: string | null;
+}
+
+export interface SearchParamsProps {
+  searchParams: { [key: string]: string | undefined };
+}
 export type { Listing, User };
