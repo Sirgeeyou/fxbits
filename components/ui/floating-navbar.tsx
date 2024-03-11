@@ -9,6 +9,7 @@ import {
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 import Logout from "../LogoutButton";
+import { ThemeMenu } from "../ThemeMenu";
 
 export const FloatingNav = ({
   navItems,
@@ -85,6 +86,7 @@ export const FloatingNav = ({
             <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-blue-500  to-transparent" />
           </Link>
         )}
+        <ThemeMenu />
       </motion.div>
     </AnimatePresence>
   );

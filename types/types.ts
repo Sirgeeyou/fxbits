@@ -30,4 +30,12 @@ export interface FilterOptions {
   value: string;
 }
 
+export type ThemeName = "light" | "dark" | "system";
+
+export interface IThemes {
+  value: ThemeName;
+  label: string;
+  icon: string;
+}
+
 export type { Listing, User };

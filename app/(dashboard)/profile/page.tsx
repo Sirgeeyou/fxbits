@@ -1,7 +1,9 @@
 export default function page() {
   return (
     <main>
-      <h1>Profile</h1>
+      <div className="h-[1000px]">
+        <h1>Profile</h1>
+      </div>
     </main>
   );
 }

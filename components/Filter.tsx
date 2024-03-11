@@ -4,7 +4,6 @@ import * as React from "react";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -39,13 +38,11 @@ export default function Filter() {
         <SelectValue placeholder="Select a Filter" />
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
-          {categories.map((category) => (
-            <SelectItem key={category.value} value={category.value}>
-              {category.name}
-            </SelectItem>
-          ))}
-        </SelectGroup>
+        {categories.map((category) => (
+          <SelectItem key={category.value} value={category.value}>
+            {category.name}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );

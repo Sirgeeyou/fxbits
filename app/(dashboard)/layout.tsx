@@ -1,10 +1,10 @@
 import { Inter } from "next/font/google";
 import React from "react";
 import ".././global.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/context/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider>
           <Navbar user={user} />
           {children}
         </ThemeProvider>
