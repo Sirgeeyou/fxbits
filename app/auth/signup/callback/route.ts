@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+  console.log("Callback route reached");
   const url = new URL(req.url);
   const code = url.searchParams.get("code");
 
@@ -13,6 +14,6 @@ export async function GET(req: NextRequest) {
     });
     await supabase.auth.exchangeCodeForSession(code);
   }
-
+  console.log("Url.origin: ", url.origin);
   return NextResponse.redirect(url.origin);
 }

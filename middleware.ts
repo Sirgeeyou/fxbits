@@ -6,7 +6,9 @@ export async function middleware(req: NextRequest) {
   const supabase = createMiddlewareClient({ req, res });
   const { data, error } = await supabase.auth.getSession();
 
-  if (!data) {
+  const { session } = data;
+
+  if (!session) {
     return NextResponse.rewrite(new URL("/login", req.url));
   }
   if (error) {
@@ -17,5 +19,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|).*)"],
+  matcher: ["/profile", "/addlisting"],
 };

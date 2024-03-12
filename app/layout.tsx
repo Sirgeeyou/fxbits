@@ -1,5 +1,7 @@
 import React from "react";
-import ".././global.css";
+import "./global.css";
+import { ThemeProvider } from "@/context/ThemeProvider";
+import { Toaster } from "@/components/Toaster";
 
 export const metadata = {
   title: "Next.js",
@@ -13,7 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>
+          {children}
+          <Toaster />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

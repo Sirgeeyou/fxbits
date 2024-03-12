@@ -1,11 +1,9 @@
-import RegisterForm from "@/components/RegisterForm";
-import { SignupFormDemo } from "@/components/SignupForm";
+import { SignupForm } from "@/components/SignupForm";
 
 export default function SignUp() {
   return (
-    <div>
-      <RegisterForm />
-      <SignupFormDemo />
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <SignupForm />
     </div>
   );
 }

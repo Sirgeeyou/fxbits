@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
 import { useToast } from "./ui/use-toast";
 
-export function LoginForm() {
+export function AddListingForm() {
   const router = useRouter();
   const { toast } = useToast();
 

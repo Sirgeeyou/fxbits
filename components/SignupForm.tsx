@@ -3,17 +3,61 @@ import React from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/signup-form";
 import { cn } from "@/utils/cn";
+import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { SignupFormSchema } from "@/lib/validations";
 import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "./ui/shad-form";
+import { useRouter } from "next/navigation";
+import { LoaderIcon } from "lucide-react";
 
-export function SignupFormDemo() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
-  };
+export function SignupForm() {
+  const router = useRouter();
+
+  // 1. Define the form
+  const form = useForm<z.infer<typeof SignupFormSchema>>({
+    resolver: zodResolver(SignupFormSchema),
+    defaultValues: {
+      email: "test@email.com",
+      password: "",
+      confirm: "",
+    },
+  });
+
+  const isLoading = form.formState.isLoading;
+
+  // 2. Define a submit handler
+  async function onSubmit(values: z.infer<typeof SignupFormSchema>) {
+    try {
+      console.log("form submitted");
+      const response = await fetch("/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (response.ok) {
+        console.log("API request successful");
+        // Use the router to navigate to a different page
+        router.push("/"); // Replace with your desired URL
+      } else {
+        console.error("API request failed:", await response.text());
+        // Handle errors, show a message, etc.
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      // Handle unexpected errors
+    }
+  }
   return (
     <div className="mx-auto w-full max-w-md rounded-none bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
@@ -24,95 +68,121 @@ export function SignupFormDemo() {
         yet
       </p>
 
-      {/* TODO: Add moving gradient maybe maybe? */}
-      {/* content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: var(--line-width);
-    background: conic-gradient(from calc(var(--angle) + var(--start-angle)), transparent 0, var(--line-color) 20%, transparent 25%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    animation: inherit;
-
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    filter: drop-shadow(0 0 10px var(--line-color)); */}
-      <form className="my-8" onSubmit={handleSubmit}>
-        <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
-          </LabelInputContainer>
-        </div>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-8">
-          <Label htmlFor="twitterpassword">Your twitter password</Label>
-          <Input
-            id="twitterpassword"
-            placeholder="••••••••"
-            type="twitterpassword"
-          />
-        </LabelInputContainer>
-
-        <button
-          className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="py-8"
+          action="/auth/signup"
+          method="post"
         >
-          Sign up &rarr;
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="email">Email Address</Label>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        id="email"
+                        placeholder="projectmayhem@fc.com"
+                        type="email"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </LabelInputContainer>
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="password">Password</Label>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        id="password"
+                        placeholder="password"
+                        type="password"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </LabelInputContainer>
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="confirm"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="confirm">Confirm Password</Label>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        id="confirm"
+                        placeholder="password"
+                        type="password"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </LabelInputContainer>
+                </FormItem>
+              );
+            }}
+          />
+
+          <button
+            className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            type="submit"
+          >
+            {isLoading ? <LoaderIcon className="animate-spin" /> : "Sign up →"}
+          </button>
           <BottomGradient />
-        </button>
 
-        <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
+          <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
-        <div className="flex flex-col space-y-4">
-          <button
-            className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGithub className="size-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-sm text-neutral-700 dark:text-neutral-300">
-              GitHub
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGoogle className="size-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-sm text-neutral-700 dark:text-neutral-300">
-              Google
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandOnlyfans className="size-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-sm text-neutral-700 dark:text-neutral-300">
-              OnlyFans
-            </span>
-            <BottomGradient />
-          </button>
-        </div>
-      </form>
+          <div className="flex flex-col space-y-4">
+            <button
+              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+              type="submit"
+            >
+              <IconBrandGithub className="size-4 text-neutral-800 dark:text-neutral-300" />
+              <span className="text-sm text-neutral-700 dark:text-neutral-300">
+                GitHub
+              </span>
+              <BottomGradient />
+            </button>
+            <button
+              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+              type="submit"
+            >
+              <IconBrandGoogle className="size-4 text-neutral-800 dark:text-neutral-300" />
+              <span className="text-sm text-neutral-700 dark:text-neutral-300">
+                Google
+              </span>
+              <BottomGradient />
+            </button>
+            <button
+              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+              type="submit"
+            >
+              <BottomGradient />
+            </button>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }

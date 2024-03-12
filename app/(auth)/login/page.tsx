@@ -1,8 +1,8 @@
-import LoginForm from "@/components/LoginForm";
+import { LoginForm } from "@/components/LoginForm";
 
 export default function Login() {
   return (
-    <div>
+    <div className="flex min-h-screen items-center justify-center bg-background">
       <LoginForm />
     </div>
   );

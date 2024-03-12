@@ -3,32 +3,42 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const url = new URL(req.url);
-  const cookieStore = cookies();
+  console.log("Signup route called");
 
-  const formData = await req.formData();
-  const email = String(formData.get("email"));
-  const password = String(formData.get("password"));
+  try {
+    const url = new URL(req.url);
+    const cookieStore = cookies();
 
-  const supabase = createRouteHandlerClient({
-    cookies: () => cookieStore,
-  });
+    // Parse JSON data
+    const { email, password } = await req.json();
 
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: `${url.origin}/auth/callback`,
-    },
-  });
+    console.log("formData: ", { email, password });
+    const supabase = createRouteHandlerClient({
+      cookies: () => cookieStore,
+    });
 
-  console.log(email, password);
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${url.origin}/auth/callback`,
+      },
+    });
 
-  if (data) console.log(data);
+    console.log(email, password);
 
-  if (error) console.log(error);
+    if (data) console.log(data);
 
-  return NextResponse.redirect(url.origin, {
-    status: 301,
-  });
+    if (error) console.log(error);
+
+    return NextResponse.redirect(url.origin, {
+      status: 301,
+    });
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 }

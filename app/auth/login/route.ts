@@ -3,28 +3,45 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const url = new URL(req.url);
-  const cookieStore = cookies();
+  console.log("Login route called");
 
-  const formData = await req.formData();
-  const email = String(formData.get("email"));
-  const password = String(formData.get("password"));
+  try {
+    const url = new URL(req.url);
+    const cookieStore = cookies();
 
-  const supabase = createRouteHandlerClient({
-    cookies: () => cookieStore,
-  });
+    // Parse JSON data
+    const { email, password } = await req.json();
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  console.log("email", email);
-  console.log("password", password);
-  if (data) console.log("Login route:", data);
-  if (error) {
-    console.log(error);
+    console.log("formData: ", { email, password });
+    const supabase = createRouteHandlerClient({
+      cookies: () => cookieStore,
+    });
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    console.log(email, password);
+
+    if (data) console.log("Login route:", data);
+
+    if (error) {
+      console.log(error);
+      return NextResponse.json(
+        { error: "Invalid Credentials" },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.redirect(url.origin, {
+      status: 301,
+    });
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
-  return NextResponse.redirect(url.origin, {
-    status: 301,
-  });
 }

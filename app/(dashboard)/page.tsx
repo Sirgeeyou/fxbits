@@ -5,14 +5,13 @@ import { ThreeDCardDemo } from "@/components/Card";
 import { InfiniteMovingCardsDemo } from "@/components/MovingDiv";
 import SearchBar from "@/components/SearchBar";
 import Filter from "@/components/Filter";
+import "../global.css";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const listings: Listing[] = await getListings({
     searchQuery: searchParams?.q,
     filter: searchParams.filter,
   });
-
-  console.log("LISTINGSSZZZ:", listings);
 
   return (
     <>

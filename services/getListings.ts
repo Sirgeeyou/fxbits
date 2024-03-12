@@ -22,6 +22,5 @@ export async function getListings(params: any = {}) {
     throw new Error("Listing could not be loaded");
   }
 
-  console.log("getListingData", data);
   return data;
 }
