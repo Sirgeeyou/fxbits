@@ -9,7 +9,6 @@ type NavbarProps = {
 };
 
 export default function Navbar({ user }: NavbarProps): React.JSX.Element {
-  console.log("Navbar user: ", user);
   const navItems = [
     {
       name: "Home",

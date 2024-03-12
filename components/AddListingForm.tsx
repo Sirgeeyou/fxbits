@@ -7,7 +7,7 @@ import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { LoginFormSchema } from "@/lib/validations";
+import { AddListingSchema, LoginFormSchema } from "@/lib/validations";
 import {
   Form,
   FormControl,
@@ -18,23 +18,24 @@ import {
 import { useRouter } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
 import { useToast } from "./ui/use-toast";
+import Uploader from "./Uploader";
 
 export function AddListingForm() {
   const router = useRouter();
   const { toast } = useToast();
 
   // 1. Define the form
-  const form = useForm<z.infer<typeof LoginFormSchema>>({
-    resolver: zodResolver(LoginFormSchema),
+  const form = useForm<z.infer<typeof AddListingSchema>>({
+    resolver: zodResolver(AddListingSchema),
     defaultValues: {
-      email: "test@email.com",
-      password: "",
+      title: "",
+      description: "",
     },
   });
   const isLoading = form.formState.isLoading;
 
   // 2. Define a submit handler
-  async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
+  async function onSubmit(values: z.infer<typeof AddListingSchema>) {
     try {
       console.log("form submitted");
       const response = await fetch("/auth/login", {
@@ -89,17 +90,17 @@ export function AddListingForm() {
         >
           <FormField
             control={form.control}
-            name="email"
+            name="title"
             render={({ field }) => {
               return (
                 <FormItem>
                   <LabelInputContainer className="mb-4">
-                    <Label htmlFor="email">Email Address</Label>
+                    <Label htmlFor="title">Email Address</Label>
                     <FormControl>
                       <Input
                         {...field}
-                        id="email"
-                        placeholder="projectmayhem@fc.com"
+                        id="title"
+                        placeholder="Enter a title"
                         type="email"
                       />
                     </FormControl>
@@ -111,18 +112,18 @@ export function AddListingForm() {
           />
           <FormField
             control={form.control}
-            name="password"
+            name="description"
             render={({ field }) => {
               return (
                 <FormItem>
                   <LabelInputContainer className="mb-4">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="description">Password</Label>
                     <FormControl>
                       <Input
                         {...field}
-                        id="password"
-                        placeholder="password"
-                        type="password"
+                        id="description"
+                        placeholder="Enter a description"
+                        type="description"
                       />
                     </FormControl>
                     <FormMessage />
@@ -142,34 +143,7 @@ export function AddListingForm() {
 
           <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
-          <div className="flex flex-col space-y-4">
-            <button
-              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <IconBrandGithub className="size-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                GitHub
-              </span>
-              <BottomGradient />
-            </button>
-            <button
-              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <IconBrandGoogle className="size-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                Google
-              </span>
-              <BottomGradient />
-            </button>
-            <button
-              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <BottomGradient />
-            </button>
-          </div>
+          <Uploader />
         </form>
       </Form>
     </div>

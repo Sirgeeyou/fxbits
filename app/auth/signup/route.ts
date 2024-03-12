@@ -9,10 +9,10 @@ export async function POST(req: NextRequest) {
     const url = new URL(req.url);
     const cookieStore = cookies();
 
-    // Parse JSON data
+    // Parse JSON data directly without logging the raw request body
     const { email, password } = await req.json();
-
     console.log("formData: ", { email, password });
+
     const supabase = createRouteHandlerClient({
       cookies: () => cookieStore,
     });
