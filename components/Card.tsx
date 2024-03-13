@@ -6,6 +6,7 @@ import { CardBody, CardContainer, CardItem } from "./ui/3d-card";
 import { Listing } from "@/types/types";
 
 export function ThreeDCardDemo({ listingData }: { listingData: Listing }) {
+  console.log(listingData);
   return (
     <CardContainer className="mb-10 h-72 w-80">
       <CardBody className="group/card relative size-auto  rounded-xl border border-black/[0.1] bg-gray-50 p-6 dark:border-white/[0.2] dark:bg-black dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] sm:w-[30rem]  ">

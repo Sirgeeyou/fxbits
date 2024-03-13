@@ -27,6 +27,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { categories } from "@/constants/constants";
+import { randomUUID } from "crypto";
+import { revalidatePath } from "next/cache";
 
 export function AddListingForm() {
   const router = useRouter();
@@ -79,41 +81,35 @@ export function AddListingForm() {
       } = values;
       try {
         const randomUUID = crypto.randomUUID();
-        const fileName = `${userId.user.id}/${randomUUID}/${selectedFile?.name}`;
+        const { data, error } = await supabase.storage
+          .from("listing-images")
+          .upload(
+            userId.user.id + "/" + randomUUID + "/" + selectedFile?.name,
+            selectedFile
+          );
 
-        // Upload the image and update the listing data concurrently
-        const [uploadResult, updateResult] = await Promise.all([
-          supabase.storage
-            .from("listing-images")
-            .upload(fileName, selectedFile),
-          supabase
-            .from("listings")
-            .update({
-              title,
-              description,
-              price,
-              short_description: shortDescription,
-              category,
-              file_name: fileName,
-            })
-            .eq("id", userId.user.id),
-        ]);
-
-        if (uploadResult.error) {
-          console.error("Error uploading file:", uploadResult.error);
-          return;
+        await supabase
+          .from("listings")
+          .update({
+            title,
+            description,
+            price,
+            short_description: shortDescription,
+            category,
+            file_name: fileName,
+          })
+          .eq("id", randomUUID);
+        revalidatePath("/");
+        if (error) {
+          console.log(error);
         }
-
-        if (updateResult.error) {
-          console.error("Error updating listing:", updateResult.error);
-          return;
+        if (data) {
+          console.log(data);
         }
-
-        console.log("Image and listing data updated successfully");
       } catch (error) {
         console.error("An error occurred:", error);
         toast({
-          title: "An unexpected error has occurred",
+          title: "An unexpected error has occured",
           description: "Please try again later.",
         });
       }

@@ -12,7 +12,7 @@ export async function getAllListings() {
 
   const listings = data?.map((listing) => {
     return {
-      image: `https://gmygxkvjdilaoerggioq.supabase.co/storage/v1/object/public/listing-images/${listing.listing_by}/${listing.id}/${listing.name}`,
+      image: `https://gmygxkvjdilaoerggioq.supabase.co/storage/v1/object/public/listing-images/${listing.listing_by}/${listing.id}/${listing.file_name}`,
     };
   });
   console.log("LISTINGSSSS: ", listings);

@@ -16,6 +16,7 @@ export async function filterListings(params: any = {}) {
 
   const { data, error } = await query;
 
+  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@", data);
   if (error) {
     console.error(error);
     throw new Error("Listing could not be loaded");
