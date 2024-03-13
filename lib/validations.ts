@@ -32,6 +32,11 @@ export const AddListingSchema = z.object({
   title: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  description: z.string().min(6),
+  description: z.string().min(6, {
+    message: "Description must be at least 6 characters",
+  }),
   image: z.any(),
+  category: z.any(),
+  price: z.coerce.number(),
+  shortDescription: z.string().max(15),
 });

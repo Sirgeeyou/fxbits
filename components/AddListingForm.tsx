@@ -19,6 +19,14 @@ import { LoaderIcon } from "lucide-react";
 import { useToast } from "./ui/use-toast";
 import { supabase } from "@/lib/supabase";
 import { User } from "@/types/types";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { categories } from "@/constants/constants";
 
 export function AddListingForm() {
   const router = useRouter();
@@ -32,6 +40,7 @@ export function AddListingForm() {
     defaultValues: {
       title: "",
       description: "",
+      shortDescription: "",
     },
   });
   const isLoading = form.formState.isLoading;
@@ -59,7 +68,7 @@ export function AddListingForm() {
   // 2. Define a submit handler
   async function onSubmit(values: z.infer<typeof AddListingSchema>) {
     if (userId && userId.user?.id && selectedFile) {
-      const { title, description } = values;
+      const { title, description, price, shortDescription, category } = values;
       try {
         const randomUUID = crypto.randomUUID();
         const { data, error } = await supabase.storage
@@ -74,8 +83,12 @@ export function AddListingForm() {
           .update({
             title,
             description,
+            price,
+            short_description: shortDescription,
+            category,
           })
           .eq("listing_by", userId.user.id);
+
         if (error) {
           console.log(error);
         }
@@ -164,6 +177,86 @@ export function AddListingForm() {
                         placeholder="image"
                         type="file"
                         onChange={handleFileChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </LabelInputContainer>
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="category">Category</Label>
+                    <FormControl>
+                      <Select onValueChange={field.onChange}>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories.map((category) => (
+                            <SelectItem
+                              key={category.value}
+                              value={category.value}
+                            >
+                              {category.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </LabelInputContainer>
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="price">Price</Label>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        id="price"
+                        placeholder="Price"
+                        type="number"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </LabelInputContainer>
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="shortDescription"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="shortDescription">
+                      Describe in few words
+                    </Label>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        id="shortDescription"
+                        placeholder="Short Description"
+                        type="text"
                       />
                     </FormControl>
                     <FormMessage />

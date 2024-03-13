@@ -20,5 +20,7 @@ export const themes: IThemes[] = [
   },
 ];
 
+// export const categories: string[] = [""];
+
 export const FILTER_SEARCH_PARAMS_KEY = "filter";
 export { categories };
