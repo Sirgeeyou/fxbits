@@ -19,13 +19,6 @@
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.39.8",
     "@tabler/icons-react": "^2.47.0",
-    "@uppy/dashboard": "^3.7.5",
-    "@uppy/drag-drop": "^3.0.3",
-    "@uppy/file-input": "^3.1.0",
-    "@uppy/progress-bar": "^3.1.0",
-    "@uppy/react": "^3.2.2",
-    "@uppy/status-bar": "^3.3.0",
-    "@uppy/tus": "^3.5.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "eslint-config-prettier": "^9.1.0",
@@ -54,6 +47,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8",
+    "supabase": "^1.148.6",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

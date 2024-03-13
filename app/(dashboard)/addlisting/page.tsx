@@ -1,7 +1,6 @@
 "use client";
 
 import { AddListingForm } from "@/components/AddListingForm";
-import Uploader from "@/components/Uploader";
 import { createListing } from "@/lib/actions/listing.action";
 import { useState } from "react";
 
@@ -44,7 +43,6 @@ export default function AddListing() {
         </button>
       </form>
       <AddListingForm />
-      <Uploader />
     </main>
   );
 }

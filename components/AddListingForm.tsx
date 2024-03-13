@@ -1,13 +1,12 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/signup-form";
 import { cn } from "@/utils/cn";
-import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { LoginFormSchema } from "@/lib/validations";
+import { AddListingSchema } from "@/lib/validations";
 import {
   Form,
   FormControl,
@@ -18,56 +17,70 @@ import {
 import { useRouter } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
 import { useToast } from "./ui/use-toast";
+import { supabase } from "@/lib/supabase";
+import { User } from "@/types/types";
 
 export function AddListingForm() {
   const router = useRouter();
   const { toast } = useToast();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [userId, setUserId] = useState<User>();
 
   // 1. Define the form
-  const form = useForm<z.infer<typeof LoginFormSchema>>({
-    resolver: zodResolver(LoginFormSchema),
+  const form = useForm<z.infer<typeof AddListingSchema>>({
+    resolver: zodResolver(AddListingSchema),
     defaultValues: {
-      email: "test@email.com",
-      password: "",
+      title: "",
+      description: "",
     },
   });
   const isLoading = form.formState.isLoading;
 
-  // 2. Define a submit handler
-  async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
-    try {
-      console.log("form submitted");
-      const response = await fetch("/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+  useEffect(function () {
+    async function getUserId() {
+      const userResponse = await supabase.auth.getUser();
+      const userId = userResponse.data;
+      setUserId(userId);
+      console.log("User id:", userId);
+    }
+    getUserId();
+  }, []);
 
-      if (response.ok) {
-        console.log("API request successful");
-        // Use the router to navigate to a different page
-        router.push("/"); // Replace with your desired URL
+  // Handle file input change
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setSelectedFile(file);
+      console.log(file.size);
+    }
+  };
+
+  // 2. Define a submit handler
+  async function onSubmit() {
+    if (userId && userId.user?.id && selectedFile) {
+      try {
+        const randomUUID = crypto.randomUUID();
+        const { data, error } = await supabase.storage
+          .from("listing-images")
+          .upload(
+            userId.user.id + "/" + randomUUID + "/" + selectedFile?.name,
+            selectedFile
+          );
+
+        if (error) {
+          console.log(error);
+        }
+        if (data) {
+          console.log(data);
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
         toast({
-          variant: "success",
-          description: "You have successfuly logged in.",
-        });
-      } else {
-        console.error("API request failed:", await response.text());
-        // Handle errors, show a message, etc.
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: "Invalid login credentials.",
+          title: "An unexpected error has occured",
+          description: "Please try again later.",
         });
       }
-    } catch (error) {
-      console.error("An error occurred:", error);
-      toast({
-        title: "An unexpected error has occured",
-        description: "Please try again later.",
-      });
     }
   }
   return (
@@ -81,26 +94,21 @@ export function AddListingForm() {
       </p>
 
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="py-8"
-          action="/auth/signup"
-          method="post"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="py-8">
           <FormField
             control={form.control}
-            name="email"
+            name="title"
             render={({ field }) => {
               return (
                 <FormItem>
                   <LabelInputContainer className="mb-4">
-                    <Label htmlFor="email">Email Address</Label>
+                    <Label htmlFor="title">Title</Label>
                     <FormControl>
                       <Input
                         {...field}
-                        id="email"
-                        placeholder="projectmayhem@fc.com"
-                        type="email"
+                        id="title"
+                        placeholder="Enter a title"
+                        type="text"
                       />
                     </FormControl>
                     <FormMessage />
@@ -109,20 +117,45 @@ export function AddListingForm() {
               );
             }}
           />
+
           <FormField
             control={form.control}
-            name="password"
+            name="description"
             render={({ field }) => {
               return (
                 <FormItem>
                   <LabelInputContainer className="mb-4">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="description">Description</Label>
                     <FormControl>
                       <Input
                         {...field}
-                        id="password"
-                        placeholder="password"
-                        type="password"
+                        id="description"
+                        placeholder="Enter a description"
+                        type="text"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </LabelInputContainer>
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="image"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <LabelInputContainer className="mb-4">
+                    <Label htmlFor="image">Image</Label>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        id="image"
+                        placeholder="image"
+                        type="file"
+                        onChange={handleFileChange}
                       />
                     </FormControl>
                     <FormMessage />
@@ -136,40 +169,9 @@ export function AddListingForm() {
             className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
           >
-            {isLoading ? <LoaderIcon className="animate-spin" /> : "Login →"}
+            {isLoading ? <LoaderIcon className="animate-spin" /> : "Upload →"}
           </button>
           <BottomGradient />
-
-          <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
-
-          <div className="flex flex-col space-y-4">
-            <button
-              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <IconBrandGithub className="size-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                GitHub
-              </span>
-              <BottomGradient />
-            </button>
-            <button
-              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <IconBrandGoogle className="size-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                Google
-              </span>
-              <BottomGradient />
-            </button>
-            <button
-              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <BottomGradient />
-            </button>
-          </div>
         </form>
       </Form>
     </div>
