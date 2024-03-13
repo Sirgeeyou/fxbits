@@ -1,23 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
-import { getListings } from "@/services/getListings";
 import { Listing } from "@/types/types";
 import Image from "next/image";
+import { getAllListings } from "@/services/getAllListings";
+
+type FileObject = {
+  name: string;
+  id: string | null;
+  updated_at: string | null;
+  created_at: string | null;
+  last_accessed_at: string | null;
+  metadata?: {
+    eTag: string;
+    size: number;
+    mimetype: string;
+    cacheControl: string;
+    lastModified: string;
+    contentLength: number;
+    httpStatusCode: number;
+  } | null;
+};
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
-  const [listingImages, setListingImages] = useState<Array<Listing>>([]);
+  const [listingImages, setListingImages] = useState<FileObject[]>([]);
   useEffect(function () {
-    async function getAllListings() {
+    async function fetchListings() {
       try {
-        const listings = await getListings();
+        const listings = await getAllListings();
+        console.log(listings);
         setListingImages(listings);
       } catch (error) {
         console.log("Error fetching listings: ", error);
       }
     }
-    getAllListings();
+    console.log(listingImages);
+    fetchListings();
   }, []);
+
   const images = listingImages.map((listing) => listing.image);
 
   console.log("Listing images:", images);

@@ -38,5 +38,6 @@ export const AddListingSchema = z.object({
   image: z.any(),
   category: z.any(),
   price: z.coerce.number(),
-  shortDescription: z.string().max(15),
+  shortDescription: z.string().max(50),
+  fileName: z.string(),
 });

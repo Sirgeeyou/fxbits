@@ -14,10 +14,6 @@ export default async function RootLayout({
   const supabase = createServerComponentClient({ cookies });
   const { data: user } = await supabase.auth.getUser();
 
-  console.log(
-    "Layout@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
-    user
-  );
   return (
     <div className="bg-background">
       <Navbar user={user} />

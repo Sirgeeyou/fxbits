@@ -1,8 +1,7 @@
 "use server";
 import { supabase } from "@/lib/supabase";
 
-export async function getListings(params: any = {}) {
-  console.log("GetListing triggered");
+export async function filterListings(params: any = {}) {
   const { searchQuery, filter } = params;
 
   let query = supabase.from("listings").select("*");

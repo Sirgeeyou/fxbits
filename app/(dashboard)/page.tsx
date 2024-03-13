@@ -1,4 +1,4 @@
-import { getListings } from "@/services/getListings";
+import { filterListings } from "@/services/filterListings";
 import { Listing, SearchParamsProps } from "@/types/types";
 import BackgroundBoxes from "@/components/BackgroundBoxes";
 import { ThreeDCardDemo } from "@/components/Card";
@@ -8,7 +8,7 @@ import Filter from "@/components/Filter";
 import "../global.css";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  const listings: Listing[] = await getListings({
+  const listings: Listing[] = await filterListings({
     searchQuery: searchParams?.q,
     filter: searchParams.filter,
   });

@@ -61,6 +61,7 @@ export function AddListingForm() {
     if (files && files.length > 0) {
       const file = files[0];
       setSelectedFile(file);
+      form.setValue("fileName", file.name);
       console.log(file.size);
     }
   };
@@ -68,37 +69,51 @@ export function AddListingForm() {
   // 2. Define a submit handler
   async function onSubmit(values: z.infer<typeof AddListingSchema>) {
     if (userId && userId.user?.id && selectedFile) {
-      const { title, description, price, shortDescription, category } = values;
+      const {
+        title,
+        description,
+        price,
+        shortDescription,
+        category,
+        fileName,
+      } = values;
       try {
         const randomUUID = crypto.randomUUID();
-        const { data, error } = await supabase.storage
-          .from("listing-images")
-          .upload(
-            userId.user.id + "/" + randomUUID + "/" + selectedFile?.name,
-            selectedFile
-          );
+        const fileName = `${userId.user.id}/${randomUUID}/${selectedFile?.name}`;
 
-        await supabase
-          .from("listings")
-          .update({
-            title,
-            description,
-            price,
-            short_description: shortDescription,
-            category,
-          })
-          .eq("listing_by", userId.user.id);
+        // Upload the image and update the listing data concurrently
+        const [uploadResult, updateResult] = await Promise.all([
+          supabase.storage
+            .from("listing-images")
+            .upload(fileName, selectedFile),
+          supabase
+            .from("listings")
+            .update({
+              title,
+              description,
+              price,
+              short_description: shortDescription,
+              category,
+              file_name: fileName,
+            })
+            .eq("id", userId.user.id),
+        ]);
 
-        if (error) {
-          console.log(error);
+        if (uploadResult.error) {
+          console.error("Error uploading file:", uploadResult.error);
+          return;
         }
-        if (data) {
-          console.log(data);
+
+        if (updateResult.error) {
+          console.error("Error updating listing:", updateResult.error);
+          return;
         }
+
+        console.log("Image and listing data updated successfully");
       } catch (error) {
         console.error("An error occurred:", error);
         toast({
-          title: "An unexpected error has occured",
+          title: "An unexpected error has occurred",
           description: "Please try again later.",
         });
       }
