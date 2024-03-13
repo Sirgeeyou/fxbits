@@ -57,8 +57,9 @@ export function AddListingForm() {
   };
 
   // 2. Define a submit handler
-  async function onSubmit() {
+  async function onSubmit(values: z.infer<typeof AddListingSchema>) {
     if (userId && userId.user?.id && selectedFile) {
+      const { title, description } = values;
       try {
         const randomUUID = crypto.randomUUID();
         const { data, error } = await supabase.storage
@@ -68,6 +69,13 @@ export function AddListingForm() {
             selectedFile
           );
 
+        await supabase
+          .from("listings")
+          .update({
+            title,
+            description,
+          })
+          .eq("listing_by", userId.user.id);
         if (error) {
           console.log(error);
         }
