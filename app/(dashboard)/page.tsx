@@ -6,12 +6,15 @@ import { InfiniteMovingCardsDemo } from "@/components/MovingDiv";
 import SearchBar from "@/components/SearchBar";
 import Filter from "@/components/Filter";
 import "../global.css";
+import Pagination from "@/components/Pagination";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const listings: Listing[] = await filterListings({
     searchQuery: searchParams?.q,
     filter: searchParams.filter,
   });
+
+  let result;
 
   return (
     <>
@@ -27,12 +30,17 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         </div>
         <Filter />
 
-        <div className="mt-10 flex flex-wrap justify-center gap-5">
+        <div className="my-10 flex flex-wrap justify-center gap-5">
           {listings.map((listing) => (
             <ProductCard key={listing.id} listingData={listing} />
           ))}
         </div>
       </div>
+
+      <Pagination
+        pageNumber={searchParams?.page ? +searchParams.page : 1}
+        isNext={result.isNext}
+      />
     </>
   );
 }
