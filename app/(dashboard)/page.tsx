@@ -1,7 +1,7 @@
 import { filterListings } from "@/services/filterListings";
 import { Listing, SearchParamsProps } from "@/types/types";
 import BackgroundBoxes from "@/components/BackgroundBoxes";
-import { ThreeDCardDemo } from "@/components/Card";
+import { ProductCard } from "@/components/Card";
 import { InfiniteMovingCardsDemo } from "@/components/MovingDiv";
 import SearchBar from "@/components/SearchBar";
 import Filter from "@/components/Filter";
@@ -29,7 +29,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
 
         <div className="mt-10 flex flex-wrap justify-center gap-5">
           {listings.map((listing) => (
-            <ThreeDCardDemo key={listing.id} listingData={listing} />
+            <ProductCard key={listing.id} listingData={listing} />
           ))}
         </div>
       </div>

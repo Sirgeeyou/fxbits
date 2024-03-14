@@ -1,7 +1,7 @@
-export default function ItemDetails({ params }) {
+export default function ItemDetails({ params }: { params: { id: string } }) {
   return (
-    <main>
-      <h1>Items {params.id}</h1>
+    <main className="flex min-h-screen items-center justify-center bg-background">
+      <h1>Item {params.id}</h1>
     </main>
   );
 }

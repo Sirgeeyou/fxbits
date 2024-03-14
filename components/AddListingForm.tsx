@@ -27,8 +27,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { categories } from "@/constants/constants";
-import { randomUUID } from "crypto";
-import { revalidatePath } from "next/cache";
 
 export function AddListingForm() {
   const router = useRouter();
@@ -99,12 +97,15 @@ export function AddListingForm() {
             file_name: fileName,
           })
           .eq("id", randomUUID);
-        revalidatePath("/");
         if (error) {
           console.log(error);
         }
         if (data) {
-          console.log(data);
+          router.push("/");
+          toast({
+            title: "Success!",
+            description: "You have succesfully added a listing.",
+          });
         }
       } catch (error) {
         console.error("An error occurred:", error);
@@ -118,7 +119,7 @@ export function AddListingForm() {
   return (
     <div className="mx-auto w-full max-w-md rounded-none bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-        Welcome to Aceternity
+        Add a listing
       </h2>
       <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
         Login to aceternity if you can because we don&apos;t have a login flow

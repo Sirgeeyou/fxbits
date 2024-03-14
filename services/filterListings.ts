@@ -16,11 +16,18 @@ export async function filterListings(params: any = {}) {
 
   const { data, error } = await query;
 
-  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@", data);
   if (error) {
     console.error(error);
     throw new Error("Listing could not be loaded");
   }
 
-  return data;
+  // Fetch image URLs for each listing
+  const listingsWithImages = await Promise.all(
+    data.map(async (listing) => {
+      const imageUrl = `https://gmygxkvjdilaoerggioq.supabase.co/storage/v1/object/public/listing-images/${listing.listing_by}/${listing.id}/${listing.file_name}`;
+      return { ...listing, image: imageUrl };
+    })
+  );
+
+  return listingsWithImages;
 }

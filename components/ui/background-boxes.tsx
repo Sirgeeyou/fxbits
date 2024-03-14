@@ -1,51 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
-import { Listing } from "@/types/types";
 import Image from "next/image";
-import { getAllListings } from "@/services/getAllListings";
+import { getAllListingsImages } from "@/services/getAllListingsImages";
 
-type FileObject = {
-  name: string;
-  id: string | null;
-  updated_at: string | null;
-  created_at: string | null;
-  last_accessed_at: string | null;
-  metadata?: {
-    eTag: string;
-    size: number;
-    mimetype: string;
-    cacheControl: string;
-    lastModified: string;
-    contentLength: number;
-    httpStatusCode: number;
-  } | null;
+type ImageObject = {
+  image: string;
 };
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
-  const [listingImages, setListingImages] = useState<FileObject[]>([]);
+  const [listingImages, setListingImages] = useState<ImageObject[] | undefined>(
+    []
+  );
   useEffect(function () {
     async function fetchListings() {
       try {
-        const listings = await getAllListings();
+        const listings = await getAllListingsImages();
         console.log(listings);
         setListingImages(listings);
       } catch (error) {
         console.log("Error fetching listings: ", error);
       }
     }
-    console.log(listingImages);
+    console.log("LISTING IMAGES :", listingImages);
     fetchListings();
   }, []);
 
-  const images = listingImages.map((listing) => listing.image);
+  const images = listingImages?.map((listing) => listing.image);
 
-  console.log("Listing images:", images);
   const rows = new Array(30).fill(1);
   const cols = new Array(12).fill(1);
 
   const getRandomImageUrl = () => {
-    return images[Math.floor(Math.random() * images.length)];
+    if (images) {
+      return images[Math.floor(Math.random() * images.length)];
+    }
   };
 
   return (
@@ -93,7 +82,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                   whileHover={{ opacity: 1 }}
                 >
                   <Image
-                    src={getRandomImageUrl()}
+                    src={getRandomImageUrl()!}
                     alt={`image-${i}-${j}`}
                     height={700}
                     width={700}
