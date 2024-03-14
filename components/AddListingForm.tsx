@@ -27,6 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { categories } from "@/constants/constants";
+import { revalidatePath } from "next/cache";
 
 export function AddListingForm() {
   const router = useRouter();
@@ -101,7 +102,7 @@ export function AddListingForm() {
           console.log(error);
         }
         if (data) {
-          router.push("/");
+          router.refresh();
           toast({
             title: "Success!",
             description: "You have succesfully added a listing.",

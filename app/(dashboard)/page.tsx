@@ -12,6 +12,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   const listings: Listing[] = await filterListings({
     searchQuery: searchParams?.q,
     filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   });
 
   let result;
@@ -37,10 +38,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         </div>
       </div>
 
-      <Pagination
-        pageNumber={searchParams?.page ? +searchParams.page : 1}
-        isNext={result.isNext}
-      />
+      <Pagination pageNumber={searchParams?.page ? +searchParams.page : 1} />
     </>
   );
 }
