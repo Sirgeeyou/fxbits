@@ -27,7 +27,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { categories } from "@/constants/constants";
-import { revalidatePath } from "next/cache";
 
 export function AddListingForm() {
   const router = useRouter();

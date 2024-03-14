@@ -7,7 +7,6 @@ import { Listing } from "@/types/types";
 import { useRouter } from "next/navigation";
 
 export function ProductCard({ listingData }: { listingData: Listing }) {
-  console.log(listingData);
   const router = useRouter();
   return (
     <div

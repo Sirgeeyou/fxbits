@@ -1,24 +1,40 @@
 import { supabase } from "@/lib/supabase";
 
 export async function filterListings(params: any) {
-  const { searchQuery, filter } = params;
-
-  console.log("Search query, filter: ", searchQuery, filter);
-
-  let query = supabase.from("listings").select("*");
-
   try {
+    const { searchQuery, filter, page = 1, pageSize = 10 } = params;
+
+    // Calculate the offset based on the current page number and page size
+    const offset = (page - 1) * pageSize;
+
+    console.log("Offset:", offset);
+    console.log("PageSize:", pageSize);
+    console.log("SearchQuery: ", searchQuery);
+    console.log("filterL: ", filter);
+
+    // Construct the query
+    let query = supabase.from("listings").select("*");
+
+    // Apply search query filter if provided
     if (searchQuery) {
       query = query.ilike("title", `%${searchQuery}%`);
-      console.log("Query after search:", query.toString());
     }
 
+    // Apply category filter if provided
     if (filter) {
       query = query.ilike("category", `%${filter}%`);
-      console.log("Query after filter:", query.toString());
     }
 
+    // Limit the query results to the appropriate range
+    const from = offset; // Starting index for the range
+    const to = offset + pageSize - 1; // Ending index for the range
+    query = query.range(from, to);
+
+    console.log("Query:", query.toString());
+
     const { data, error } = await query;
+
+    console.log("Retrieved Data:", data);
 
     if (error) {
       console.error("Error fetching listings:", error);

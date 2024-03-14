@@ -16,13 +16,11 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
     async function fetchListings() {
       try {
         const listings = await getAllListingsImages();
-        console.log(listings);
         setListingImages(listings);
       } catch (error) {
         console.log("Error fetching listings: ", error);
       }
     }
-    console.log("LISTING IMAGES :", listingImages);
     fetchListings();
   }, []);
 
