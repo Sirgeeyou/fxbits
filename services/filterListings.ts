@@ -4,17 +4,17 @@ export async function filterListings(params: any) {
   try {
     const { searchQuery, filter, page = 1, pageSize = 10 } = params;
 
-    // Calculate the offset based on the current page number and page size
-    const offset = (page - 1) * pageSize;
+    // Calculate the skipAmount based on the current page number and page size
+    const skipAmount = (page - 1) * pageSize;
 
-    console.log("Offset:", offset);
+    console.log("skipAmount:", skipAmount);
     console.log("PageSize:", pageSize);
     console.log("SearchQuery: ", searchQuery);
     console.log("filterL: ", filter);
 
     // Construct the query
-    let query = supabase.from("listings").select("*");
-
+    let query = supabase.from("listings").select("*", { count: "exact" });
+    console.log("QUERY COUNT&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&: ", query);
     // Apply search query filter if provided
     if (searchQuery) {
       query = query.ilike("title", `%${searchQuery}%`);
@@ -25,16 +25,16 @@ export async function filterListings(params: any) {
       query = query.ilike("category", `%${filter}%`);
     }
 
-    // Limit the query results to the appropriate range
-    const from = offset; // Starting index for the range
-    const to = offset + pageSize - 1; // Ending index for the range
+    const from = skipAmount;
+    const to = skipAmount + pageSize - 1;
     query = query.range(from, to);
 
-    console.log("Query:", query.toString());
+    const { data, error, count } = await query;
 
-    const { data, error } = await query;
-
-    console.log("Retrieved Data:", data);
+    // If no listings are found, return an empty array
+    if (!data || data.length === 0) {
+      return { listingsWithImages: [], isNext: false };
+    }
 
     if (error) {
       console.error("Error fetching listings:", error);
@@ -49,7 +49,18 @@ export async function filterListings(params: any) {
       })
     );
 
-    return listingsWithImages;
+    const totalListings = listingsWithImages.length;
+    console.log("TotalLisintgs: ", totalListings);
+    console.log("skipAmount", skipAmount);
+    console.log("Count", count);
+    console.log("pageSize: ", pageSize);
+
+    const isNext = count > skipAmount + totalListings;
+    console.log("ISNEXT: ", isNext);
+
+    //15  > 10 + 5
+
+    return { listingsWithImages, isNext };
   } catch (error) {
     console.error("Error filtering listings:", error);
     throw error;

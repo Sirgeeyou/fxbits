@@ -8,14 +8,17 @@ import Filter from "@/components/Filter";
 import "../global.css";
 import Pagination from "@/components/Pagination";
 
+interface FilterListingsResponse {
+  listings: Listing[];
+  isNext: boolean;
+}
+
 export default async function Home({ searchParams }: SearchParamsProps) {
-  const listings: Listing[] = await filterListings({
+  const { listingsWithImages, isNext } = await filterListings({
     searchQuery: searchParams?.q,
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
-
-  let result;
 
   return (
     <>
@@ -32,13 +35,16 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         <Filter />
 
         <div className="my-10 flex flex-wrap justify-center gap-5">
-          {listings.map((listing) => (
+          {listingsWithImages.map((listing) => (
             <ProductCard key={listing.id} listingData={listing} />
           ))}
         </div>
       </div>
 
-      <Pagination pageNumber={searchParams?.page ? +searchParams.page : 1} />
+      <Pagination
+        pageNumber={searchParams?.page ? +searchParams.page : 1}
+        isNext={isNext}
+      />
     </>
   );
 }
