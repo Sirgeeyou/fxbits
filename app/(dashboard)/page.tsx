@@ -7,6 +7,7 @@ import SearchBar from "@/components/SearchBar";
 import Filter from "@/components/Filter";
 import "../global.css";
 import Pagination from "@/components/Pagination";
+import ProductList from "@/components/ProductList";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { listingsWithImages, isNext } = await filterListings({
@@ -32,9 +33,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         <Filter />
 
         <div className="my-10 flex flex-wrap justify-center gap-2">
-          {listingsWithImages.map((listing) => (
-            <ProductCard key={listing.id} listingData={listing} />
-          ))}
+          <ProductList listingsWithImages={listingsWithImages} />
         </div>
       </div>
 
