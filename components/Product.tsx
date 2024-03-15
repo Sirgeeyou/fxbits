@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Listing } from "@/types/types";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Button } from "./ui/animated-button";
+import { Badge } from "./ui/badge";
 
 export default function Product({ data }: { data: Listing }) {
   const {
@@ -15,15 +17,13 @@ export default function Product({ data }: { data: Listing }) {
   } = data;
 
   return (
-    <div
-      className={cn(
-        "flex min-h-screen items-center justify-center bg-background p-4"
-      )}
-    >
+    <div className={cn("flex w-full mx-[350px] bg-background p-4")}>
       <div className={cn("relative flex max-w-7xl")}>
         {/* Image */}
         <motion.div
-          className={cn("relative size-80 z-10 rounded-l-lg overflow-hidden")}
+          className={cn(
+            "w-[550px] h-[500px] z-10 rounded-l-lg overflow-hidden"
+          )}
           initial={{ filter: "blur(8px)" }}
           animate={{ filter: "blur(0px)" }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -31,7 +31,8 @@ export default function Product({ data }: { data: Listing }) {
           <Image
             src={image}
             alt={title}
-            layout="fill"
+            width={550}
+            height={500}
             objectFit="cover"
             className={cn("rounded-l-lg")}
           />
@@ -40,33 +41,35 @@ export default function Product({ data }: { data: Listing }) {
         {/* Animated product details */}
         <motion.div
           className={cn(
-            "overflow-hidden rounded-br-lg rounded-tr-lg bg-card shadow-lg  dark:shadow-accent/[0.5] absolute left-0 right-0 p-4 min-w-[320px] max-w-[650px] h-[320px] dark:hover:shadow-emerald-500/[0.15] ease-in-out duration-300"
+            "overflow-hidden rounded-br-lg rounded-tr-lg bg-card shadow-lg  dark:shadow-accent/[0.5] absolute left-0 right-0 p-4 min-w-[320px] max-w-full dark:hover:shadow-emerald-500/[0.15] ease-in-out duration-300 h-full"
           )}
           initial={{ y: "0", opacity: 0 }} // Start from above the image
           animate={{ x: "100%", opacity: 1 }} // Animate downwards towards the top of the image
           transition={{ duration: 0.5 }}
         >
           <div className="relative flex size-full flex-col">
-            <h1 className="text-2xl font-bold text-neutral-600 dark:text-neutral-300">
+            <h1 className="text-2xl font-bold tracking-wide text-stone-800 dark:text-stone-300">
               {title}
             </h1>
-            <p className="text-xl text-neutral-600 dark:text-neutral-300">
+            <Badge className="mt-1 inline-block">{category}</Badge>
+            <p className="mt-3 text-xl text-stone-600 dark:text-stone-300">
               {shortDescription}
             </p>
-            <p className="mt-3 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
+
+            <p className="mt-3 max-w-sm text-sm text-stone-600 dark:text-stone-300">
               {description}
             </p>
 
-            <p className="text-base text-neutral-600 dark:text-neutral-300">
-              Category: {category}
-            </p>
-            <div className="mt-auto flex items-end justify-between">
-              <p className="text-base text-neutral-600 dark:text-neutral-300">
-                Price: ${price}
-              </p>
-              <button className="text-base text-neutral-600 dark:text-neutral-300">
-                Buy
-              </button>
+            <div className="mt-auto flex items-center justify-between">
+              <div className="flex items-center">
+                <span className="mr-0.5 text-stone-500">$</span>
+                <p className="text-base font-semibold text-stone-800 dark:text-stone-300">
+                  {price}
+                </p>
+              </div>
+              <Button className="border-border bg-background text-base text-stone-800 dark:text-stone-300">
+                Rent Now
+              </Button>
             </div>
           </div>
         </motion.div>

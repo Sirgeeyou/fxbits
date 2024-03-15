@@ -32,7 +32,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         </div>
         <Filter />
 
-        <div className="my-10 flex flex-wrap justify-center gap-2">
+        <div className="my-10 flex justify-center">
           <ProductList listingsWithImages={listingsWithImages} />
         </div>
       </div>
