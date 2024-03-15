@@ -7,14 +7,9 @@ export async function filterListings(params: any) {
     // Calculate the skipAmount based on the current page number and page size
     const skipAmount = (page - 1) * pageSize;
 
-    console.log("skipAmount:", skipAmount);
-    console.log("PageSize:", pageSize);
-    console.log("SearchQuery: ", searchQuery);
-    console.log("filterL: ", filter);
-
     // Construct the query
     let query = supabase.from("listings").select("*", { count: "exact" });
-    console.log("QUERY COUNT&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&: ", query);
+
     // Apply search query filter if provided
     if (searchQuery) {
       query = query.ilike("title", `%${searchQuery}%`);
@@ -50,15 +45,8 @@ export async function filterListings(params: any) {
     );
 
     const totalListings = listingsWithImages.length;
-    console.log("TotalLisintgs: ", totalListings);
-    console.log("skipAmount", skipAmount);
-    console.log("Count", count);
-    console.log("pageSize: ", pageSize);
 
     const isNext = count > skipAmount + totalListings;
-    console.log("ISNEXT: ", isNext);
-
-    //15  > 10 + 5
 
     return { listingsWithImages, isNext };
   } catch (error) {
