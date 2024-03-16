@@ -1,7 +1,6 @@
 import { filterListings } from "@/services/filterListings";
 import { SearchParamsProps } from "@/types/types";
 import BackgroundBoxes from "@/components/BackgroundBoxes";
-import { ProductCard } from "@/components/Card";
 import { InfiniteMovingCardsDemo } from "@/components/MovingDiv";
 import SearchBar from "@/components/SearchBar";
 import Filter from "@/components/Filter";

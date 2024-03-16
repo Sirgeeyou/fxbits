@@ -8,7 +8,7 @@ export default async function ItemDetails({
 }) {
   const data = await getListingById(params.id);
   return (
-    <main className="min-h-screen max-w-[1280p] bg-background">
+    <main className="flex min-h-screen max-w-[1280p] items-center justify-center bg-background">
       {data ? <Product data={data} /> : <p>Loading...</p>}
     </main>
   );
