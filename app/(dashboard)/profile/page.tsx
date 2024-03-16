@@ -1,4 +1,4 @@
-import UserListings from "@/components/UserListings";
+import Gallery from "@/components/Gallery";
 import { getUserListing } from "@/services/getUserListings";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
@@ -19,8 +19,8 @@ export default async function page() {
 
   return (
     <main>
-      <div className="flex min-h-screen max-w-[1280px] items-center justify-center bg-background">
-        <UserListings listings={listings} />
+      <div className="flex min-h-screen  items-center justify-center bg-background">
+        <Gallery listings={listings} />
       </div>
     </main>
   );
