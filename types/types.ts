@@ -7,6 +7,7 @@ type Listing = {
   category: string;
   short_description: string;
   key?: number;
+  created_at: string;
 };
 
 type User = {
