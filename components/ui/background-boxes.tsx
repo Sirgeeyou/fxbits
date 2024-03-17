@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
 import { getAllListingsImages } from "@/services/getAllListingsImages";
+import { max } from "date-fns";
 
 type ImageObject = {
   image: string;
@@ -83,8 +84,11 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                   <Image
                     src={getRandomImageUrl()!}
                     alt={`image-${i}-${j}`}
-                    height={250}
-                    width={250}
+                    fill
+                    sizes={"(max-width: 640px) 100vw, 50vw"}
+                    style={{
+                      objectFit: "cover",
+                    }}
                     quality={50}
                   />
                 </motion.div>
