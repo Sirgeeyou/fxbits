@@ -13,7 +13,6 @@ export default function Pagination({ pageNumber, isNext }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  console.log("PAgination isNExt", isNext);
   const handleNavigation = (direction: string) => {
     const nextPageNumber =
       direction === "prev" ? pageNumber - 1 : pageNumber + 1;

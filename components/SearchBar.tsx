@@ -27,7 +27,6 @@ export default function SearchBar() {
             value: search,
           });
 
-          console.log("newurl", newUrl);
           router.push(newUrl, { scroll: false });
         } else {
           if (pathname === route) {

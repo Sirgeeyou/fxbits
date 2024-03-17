@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  console.log("Reached logout route");
   const url = new URL(req.url);
   const cookieStore = cookies();
 
@@ -12,7 +11,7 @@ export async function POST(req: NextRequest) {
   });
 
   const { error } = await supabase.auth.signOut();
-  if (error) console.log(error);
+  if (error) throw new Error("An error has occured", error);
   return NextResponse.redirect(url.origin, {
     status: 301,
   });

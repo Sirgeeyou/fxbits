@@ -2,8 +2,6 @@
 import { supabase } from "@/lib/supabase";
 
 export async function getAllListingsImages() {
-  console.log("GetAllListing triggered");
-
   const { data, error } = await supabase.from("listings").select("*");
 
   //   https://gmygxkvjdilaoerggioq.supabase.co/storage/v1/object/public/listing-images/3913fd26-2001-40c0-b00e-a013421481e5/1b35e683-a87e-46c9-843e-d903d2dea0e3/download%20(2).jpeg

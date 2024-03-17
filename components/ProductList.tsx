@@ -25,7 +25,7 @@ export default function ProductList({
   };
 
   return (
-    <ul className="flex flex-wrap gap-3">
+    <ul className="flex flex-wrap gap-x-3 gap-y-5">
       {listingsWithImages.map((listing, index) => (
         <motion.li
           key={listing.id}

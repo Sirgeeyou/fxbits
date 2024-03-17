@@ -36,7 +36,6 @@ export function LoginForm() {
   // 2. Define a submit handler
   async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
     try {
-      console.log("form submitted");
       const response = await fetch("/auth/login", {
         method: "POST",
         headers: {
@@ -46,9 +45,7 @@ export function LoginForm() {
       });
 
       if (response.ok) {
-        console.log("API request successful");
-        // Use the router to navigate to a different page
-        router.push("/"); // Replace with your desired URL
+        router.push("/");
         toast({
           variant: "default",
           description: "You have successfuly logged in.",

@@ -12,9 +12,9 @@ export async function middleware(req: NextRequest) {
     return NextResponse.rewrite(new URL("/login", req.url));
   }
   if (error) {
-    console.log(error);
+    throw new Error("An error has occured", error);
   }
-  console.log("Middleware: @@@@@@@@@@@@@@@@@@@@@@@@@@@", data);
+
   return res;
 }
 

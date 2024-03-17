@@ -18,7 +18,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
         const listings = await getAllListingsImages();
         setListingImages(listings);
       } catch (error) {
-        console.log("Error fetching listings: ", error);
+        throw new Error("Error fetching listings");
       }
     }
     fetchListings();

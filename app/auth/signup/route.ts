@@ -3,15 +3,12 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  console.log("Signup route called");
-
   try {
     const url = new URL(req.url);
     const cookieStore = cookies();
 
     // Parse JSON data directly without logging the raw request body
     const { email, password } = await req.json();
-    console.log("formData: ", { email, password });
 
     const supabase = createRouteHandlerClient({
       cookies: () => cookieStore,
@@ -25,11 +22,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    console.log(email, password);
-
-    if (data) console.log(data);
-
-    if (error) console.log(error);
+    if (error) throw new Error("An error has occured", error);
 
     return NextResponse.redirect(url.origin, {
       status: 301,

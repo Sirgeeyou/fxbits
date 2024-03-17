@@ -50,7 +50,6 @@ export function AddListingForm() {
       const userResponse = await supabase.auth.getUser();
       const userId = userResponse.data;
       setUserId(userId);
-      console.log("User id:", userId);
     }
     getUserId();
   }, []);
@@ -62,7 +61,6 @@ export function AddListingForm() {
       const file = files[0];
       setSelectedFile(file);
       form.setValue("fileName", file.name);
-      console.log(file.size);
     }
   };
 
@@ -98,7 +96,10 @@ export function AddListingForm() {
           })
           .eq("id", randomUUID);
         if (error) {
-          console.log(error);
+          toast({
+            title: "An unexpected error has occured",
+            description: "Please try again later.",
+          });
         }
         if (data) {
           router.push("/");
@@ -108,7 +109,6 @@ export function AddListingForm() {
           });
         }
       } catch (error) {
-        console.error("An error occurred:", error);
         toast({
           title: "An unexpected error has occured",
           description: "Please try again later.",

@@ -36,7 +36,6 @@ export function SignupForm() {
   // 2. Define a submit handler
   async function onSubmit(values: z.infer<typeof SignupFormSchema>) {
     try {
-      console.log("form submitted");
       const response = await fetch("/auth/signup", {
         method: "POST",
         headers: {
@@ -46,9 +45,7 @@ export function SignupForm() {
       });
 
       if (response.ok) {
-        console.log("API request successful");
-        // Use the router to navigate to a different page
-        router.push("/"); // Replace with your desired URL
+        router.push("/"); 
       } else {
         console.error("API request failed:", await response.text());
         // Handle errors, show a message, etc.
