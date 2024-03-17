@@ -33,6 +33,8 @@ export async function filterListings(params: any) {
       return { listingsWithImages: [], isNext: false };
     }
 
+    const totalCount = count ?? 0;
+
     if (error) {
       console.error("Error fetching listings:", error);
       throw new Error("Listing could not be loaded");
@@ -48,7 +50,7 @@ export async function filterListings(params: any) {
 
     const totalListings = listingsWithImages.length;
 
-    const isNext = count > skipAmount + totalListings;
+    const isNext = totalCount > skipAmount + totalListings;
 
     return { listingsWithImages, isNext };
   } catch (error) {

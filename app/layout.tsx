@@ -3,7 +3,6 @@ import "./global.css";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { Toaster } from "@/components/Toaster";
 import { Roboto } from "next/font/google";
-import Head from "next/head";
 
 export const metadata = {
   title: "WorldWideRental Network",
