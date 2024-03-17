@@ -25,21 +25,29 @@ export default function ProductList({
   };
 
   return (
-    <ul className="flex flex-wrap gap-x-3 gap-y-5">
-      {listingsWithImages.map((listing, index) => (
-        <motion.li
-          key={listing.id}
-          variants={fadeInAnimationVariants}
-          initial="initial"
-          whileInView="animate"
-          viewport={{
-            once: true,
-          }}
-          custom={index}
-        >
-          <ProductCard listingData={listing} />
-        </motion.li>
-      ))}
-    </ul>
+    <>
+      {listingsWithImages.length === 0 ? (
+        <h1 className="text-neutral-800 dark:text-primary">
+          No listings matched your searches...
+        </h1>
+      ) : (
+        <ul className="flex flex-wrap gap-x-3 gap-y-5">
+          {listingsWithImages.map((listing, index) => (
+            <motion.li
+              key={listing.id}
+              variants={fadeInAnimationVariants}
+              initial="initial"
+              whileInView="animate"
+              viewport={{
+                once: true,
+              }}
+              custom={index}
+            >
+              <ProductCard listingData={listing} />
+            </motion.li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 }

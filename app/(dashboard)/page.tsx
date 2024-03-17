@@ -37,7 +37,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           <ProductList listingsWithImages={listingsWithImages} />
         </div>
       </div>
-
       <Pagination
         pageNumber={searchParams?.page ? +searchParams.page : 1}
         isNext={isNext}
