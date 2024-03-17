@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
 import { getAllListingsImages } from "@/services/getAllListingsImages";
-import { max } from "date-fns";
 
 type ImageObject = {
   image: string;
