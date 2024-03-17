@@ -83,8 +83,8 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                   <Image
                     src={getRandomImageUrl()!}
                     alt={`image-${i}-${j}`}
-                    height={700}
-                    width={700}
+                    height={250}
+                    width={250}
                     quality={50}
                   />
                 </motion.div>

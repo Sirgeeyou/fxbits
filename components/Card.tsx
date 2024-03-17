@@ -32,8 +32,8 @@ export function ProductCard({ listingData }: { listingData: Listing }) {
             {listingData.image && (
               <Image
                 src={listingData.image}
-                height="1000"
-                width="1000"
+                height={1000}
+                width={1000}
                 quality={50}
                 className="h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl"
                 alt={listingData.title}

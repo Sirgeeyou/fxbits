@@ -10,21 +10,27 @@ import {
 } from "./ui/select";
 import { categories } from "@/constants/constants";
 import { useRouter, useSearchParams } from "next/navigation";
-import { formUrlQuery } from "@/lib/utils";
+import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
 export default function Filter() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   function handleUpdateParams(value: string) {
-    console.log(value);
-    const newUrl = formUrlQuery({
-      params: searchParams.toString(),
-      key: "filter",
-      value,
-    });
-
-    router.push(newUrl, { scroll: false });
+    if (value === "all") {
+      const newUrl = removeKeysFromQuery({
+        params: searchParams.toString(),
+        keysToRemove: ["filter"],
+      });
+      router.push(newUrl, { scroll: false });
+    } else {
+      const newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: "filter",
+        value,
+      });
+      router.push(newUrl, { scroll: false });
+    }
   }
 
   return (
