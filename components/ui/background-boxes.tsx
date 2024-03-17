@@ -27,7 +27,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   const images = listingImages?.map((listing) => listing.image);
 
   const rows = new Array(30).fill(1);
-  const cols = new Array(12).fill(1);
+  const cols = new Array(16).fill(1);
 
   const getRandomImageUrl = () => {
     if (images) {
@@ -78,13 +78,14 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                 <motion.div
                   className="absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-300"
                   whileHover={{ opacity: 1 }}
+                  initial={false}
                 >
                   <Image
                     src={getRandomImageUrl()!}
                     alt={`image-${i}-${j}`}
                     height={700}
                     width={700}
-                    quality={75}
+                    quality={50}
                   />
                 </motion.div>
               )}

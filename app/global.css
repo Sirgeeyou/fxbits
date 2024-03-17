@@ -52,3 +52,11 @@
     --ring: 224.3 76.3% 48%;
   }
 }
+
+.inverted-icon {
+  filter: invert(100%);
+}
+
+.normal-icon {
+  filter: invert(0%);
+}

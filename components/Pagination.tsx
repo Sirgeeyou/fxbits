@@ -27,7 +27,7 @@ export default function Pagination({ pageNumber, isNext }: Props) {
     router.push(newUrl, { scroll: false });
   };
   return (
-    <div className="mb-5 ml-5 flex items-center justify-center gap-3">
+    <div className=" ml-5 flex items-center justify-center gap-3">
       <button
         disabled={pageNumber === 1}
         onClick={() => handleNavigation("prev")}

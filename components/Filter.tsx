@@ -8,11 +8,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { FILTER_SEARCH_PARAMS_KEY, categories } from "@/constants/constants";
+import { categories } from "@/constants/constants";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery } from "@/lib/utils";
-
-const paramFilter = FILTER_SEARCH_PARAMS_KEY;
 
 export default function Filter() {
   const searchParams = useSearchParams();
@@ -30,12 +28,9 @@ export default function Filter() {
   }
 
   return (
-    <Select
-      onValueChange={(value) => handleUpdateParams(value)}
-      defaultValue={paramFilter || undefined}
-    >
+    <Select onValueChange={(value) => handleUpdateParams(value)}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select a Filter" />
+        <SelectValue placeholder="Select" className="text-muted-foreground" />
       </SelectTrigger>
       <SelectContent>
         {categories.map((category) => (

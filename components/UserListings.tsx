@@ -16,8 +16,18 @@ export default function UserListings({
         {listings?.map((listing) => (
           <div
             key={listing.id}
-            className="flex justify-between rounded-md border  border-border"
+            className="flex rounded-md border  border-border"
           >
+            <div className="max-h-[350px] min-h-full overflow-hidden">
+              <Image
+                src={listing.image}
+                alt={listing.title}
+                width={350}
+                height={350}
+                className=" rounded-md "
+                style={{ maxWidth: "100%", height: "100%" }}
+              />
+            </div>
             <div className="my-1 flex min-w-36 flex-col p-4">
               <p className="truncate text-2xl text-primary dark:text-primary">
                 {listing.title}
@@ -42,17 +52,6 @@ export default function UserListings({
               <p className="text-sm text-muted-foreground">
                 {format(new Date(listing.created_at), "MM/dd/yyyy")}
               </p>
-            </div>
-
-            <div className="max-h-[150px] min-h-full overflow-hidden">
-              <Image
-                src={listing.image}
-                alt={listing.title}
-                width={150}
-                height={150}
-                className=" rounded-md "
-                style={{ maxWidth: "100%", height: "100%" }}
-              />
             </div>
           </div>
         ))}

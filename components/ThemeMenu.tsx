@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { themes } from "@/constants/constants";
 import { useTheme } from "@/context/ThemeProvider";
-import { Moon, Sun } from "lucide-react";
+import { SunMoon } from "lucide-react";
 import Image from "next/image";
 
 export function ThemeMenu() {
@@ -16,7 +16,9 @@ export function ThemeMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        {mode === "dark" ? <Sun /> : <Moon />}
+        <SunMoon
+          className={`mr-4  ${mode === "dark" ? "inverted-icon" : "normal-icon"}`}
+        />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Select a theme</DropdownMenuLabel>
@@ -34,7 +36,16 @@ export function ThemeMenu() {
               }
             }}
           >
-            <Image src={item.icon} alt={item.value} width={16} height={16} />
+            <Image
+              src={item.icon}
+              alt={item.value}
+              width={16}
+              height={16}
+              className={mode === "dark" ? "inverted-icon" : "normal-icon"}
+            />
+            <span className="ml-2 text-stone-600 dark:text-stone-300">
+              {item.label}
+            </span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

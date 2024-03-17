@@ -1,3 +1,4 @@
+"use server";
 import { supabase } from "@/lib/supabase";
 
 export async function filterListings(params: any) {
@@ -16,7 +17,8 @@ export async function filterListings(params: any) {
     }
 
     // Apply category filter if provided
-    if (filter) {
+    if (filter && filter !== "all") {
+      // Check if filter is not "all"
       query = query.ilike("category", `%${filter}%`);
     }
 

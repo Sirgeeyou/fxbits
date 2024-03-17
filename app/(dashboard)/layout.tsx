@@ -15,7 +15,7 @@ export default async function RootLayout({
   const { data: user } = await supabase.auth.getUser();
 
   return (
-    <div className="bg-background">
+    <div className="bg-background pb-10">
       <Navbar user={user} />
       {children}
     </div>

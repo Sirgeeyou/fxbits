@@ -1,6 +1,7 @@
 import { FilterOptions, IThemes } from "@/types/types";
 
 const categories: FilterOptions[] = [
+  { name: "All", value: "all" },
   {
     name: "Shoes",
     value: "shoes",

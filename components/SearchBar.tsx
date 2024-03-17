@@ -27,6 +27,7 @@ export default function SearchBar() {
             value: search,
           });
 
+          console.log("newurl", newUrl);
           router.push(newUrl, { scroll: false });
         } else {
           if (pathname === route) {
@@ -34,6 +35,7 @@ export default function SearchBar() {
               params: searchParams.toString(),
               keysToRemove: ["q"],
             });
+
             router.push(newUrl, { scroll: false });
           }
         }
@@ -45,7 +47,12 @@ export default function SearchBar() {
 
   return (
     <LabelInputContainer>
-      <Label htmlFor="firstname">First name</Label>
+      <Label
+        htmlFor="firstname"
+        className="text-muted-foreground dark:text-muted-foreground"
+      >
+        First name
+      </Label>
       <Input
         id="firstname"
         placeholder="Tyler"
