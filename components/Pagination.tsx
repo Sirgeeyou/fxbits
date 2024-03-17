@@ -44,7 +44,7 @@ export default function Pagination({ pageNumber, isNext }: Props) {
         onClick={() => handleNavigation("next")}
         className="group/btn relative flex h-10 w-[100px] items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-background dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
       >
-        <p className="text-neutral-700 dark:bg-background dark:text-primary">
+        <p className="text-neutral-700 dark:bg-background dark:text-primary ">
           Next
         </p>
         <BottomGradient />

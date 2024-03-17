@@ -10,6 +10,7 @@ import { cn } from "@/utils/cn";
 import Link from "next/link";
 import Logout from "../LogoutButton";
 import { ThemeMenu } from "../ThemeMenu";
+import AddListingButton from "../AddListingButton";
 
 export const FloatingNav = ({
   navItems,
@@ -78,15 +79,20 @@ export const FloatingNav = ({
           </Link>
         ))}
         {user?.user ? (
-          <Logout />
+          <>
+            <AddListingButton />
+            <Logout />
+          </>
         ) : (
-          <Link
-            href="/login"
-            className="relative rounded-full border border-neutral-200 px-4 py-1 text-lg font-medium text-secondary-foreground dark:border-white/[0.2] dark:text-white"
-          >
-            <span>Login</span>
-            <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-blue-500  to-transparent" />
-          </Link>
+          <>
+            <Link
+              href="/login"
+              className="relative rounded-full border border-neutral-200 px-4 py-1 text-lg font-medium text-secondary-foreground dark:border-white/[0.2] dark:text-white"
+            >
+              <span>Login</span>
+              <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-blue-500  to-transparent" />
+            </Link>
+          </>
         )}
         <ThemeMenu />
       </motion.div>

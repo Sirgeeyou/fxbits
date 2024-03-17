@@ -1,7 +1,9 @@
 import UserListings from "@/components/UserListings";
 import { getUserListing } from "@/services/getUserListings";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Home } from "lucide-react";
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 export default async function page() {
   const supabase = createServerComponentClient({ cookies });
@@ -19,6 +21,11 @@ export default async function page() {
 
   return (
     <main>
+      <div className="absolute left-6 top-6 text-neutral-400 dark:text-white">
+        <Link href={"/"}>
+          <Home size={30} />
+        </Link>
+      </div>
       <div className="flex min-h-screen justify-center bg-background  align-middle">
         <UserListings listings={listings} />
       </div>
