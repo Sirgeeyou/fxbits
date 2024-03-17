@@ -34,25 +34,28 @@ export function ProductCard({ listingData }: { listingData: Listing }) {
                 src={listingData.image}
                 height="1000"
                 width="1000"
+                quality={50}
                 className="h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl"
                 alt={listingData.title}
               />
             )}
           </CardItem>
-          <div className="mt-20 flex items-center justify-between">
+          <div className="mt-20 flex items-center  justify-between align-middle">
             <CardItem
               translateZ={20}
               as="button"
-              className="rounded-xl px-4 py-2 text-xs font-normal dark:text-white"
+              className="rounded-xl px-4 py-2 text-xs font-normal text-stone-600 dark:text-stone-300"
             >
-              Visit now →
+              <span className="text-base ">$</span>
+              <span className="text-xl font-semibold">{listingData.price}</span>
+              <span className="ml-0.5">/night</span>
             </CardItem>
             <CardItem
               as="button"
               translateZ={20}
               className="rounded-xl bg-black px-4 py-2 text-xs font-bold text-white dark:bg-primary dark:text-black"
             >
-              Sign up
+              Visit now →
             </CardItem>
           </div>
         </CardBody>

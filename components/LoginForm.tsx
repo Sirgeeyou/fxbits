@@ -131,7 +131,7 @@ export function LoginForm() {
             }}
           />
           <Link
-            href={"/signtup"}
+            href={"/signup"}
             className="mb-3 text-sm text-neutral-100 dark:text-muted-foreground"
           >
             Don&apos;t have an account yet? Sign up here!

@@ -51,7 +51,7 @@ export default function SearchBar() {
         htmlFor="firstname"
         className="text-muted-foreground dark:text-muted-foreground"
       >
-        First name
+        Search by title
       </Label>
       <Input
         placeholder="Search..."

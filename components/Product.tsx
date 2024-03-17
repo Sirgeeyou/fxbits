@@ -32,6 +32,7 @@ export default function Product({ data }: { data: Listing }) {
             src={image}
             alt={title}
             fill={true}
+            quality={45}
             objectFit="cover"
             className={cn("rounded-l-lg")}
           />

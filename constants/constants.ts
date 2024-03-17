@@ -3,12 +3,15 @@ import { FilterOptions, IThemes } from "@/types/types";
 const categories: FilterOptions[] = [
   { name: "All", value: "all" },
   {
-    name: "Shoes",
-    value: "shoes",
+    name: "Cabins",
+    value: "cabins",
   },
-  { name: "Supplements", value: "supplements" },
-  { name: "Cats", value: "cats" },
-  { name: "Cars", value: "cars" },
+  { name: "Mansions", value: "mansions" },
+  { name: "Cottages", value: "cottages" },
+  { name: "Mobile", value: "mobile" },
+  { name: "Modern", value: "modern" },
+  { name: "Lodge", value: "lodge" },
+  { name: "Chalet", value: "chalet" },
 ];
 
 export const themes: IThemes[] = [
@@ -20,8 +23,6 @@ export const themes: IThemes[] = [
     icon: "/assets/icons/computer.svg",
   },
 ];
-
-// export const categories: string[] = [""];
 
 export const FILTER_SEARCH_PARAMS_KEY = "filter";
 export { categories };

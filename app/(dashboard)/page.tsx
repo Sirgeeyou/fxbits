@@ -27,7 +27,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         </h1>
         <div className=" flex max-w-[500px] flex-col-reverse items-start gap-5 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-2 pb-2">
-            <p className="text-base text-muted-foreground">Apply a filter</p>
+            <p className="text-sm text-muted-foreground">Apply a filter</p>
             <Filter />
           </div>
           <SearchBar />
