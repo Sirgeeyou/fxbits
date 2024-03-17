@@ -5,6 +5,9 @@ import { cookies } from "next/headers";
 import Navbar from "@/components/Navbar";
 
 // const inter = Inter({ subsets: ["latin"] });
+export const metadata = {
+  title: "WorldWideRental Network",
+};
 
 export default async function RootLayout({
   children,
