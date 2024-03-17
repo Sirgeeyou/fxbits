@@ -26,7 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { categories } from "@/constants/constants";
+import { listingCategories } from "@/constants/constants";
 
 export function AddListingForm() {
   const router = useRouter();
@@ -208,7 +208,7 @@ export function AddListingForm() {
                           <SelectValue placeholder="Category" />
                         </SelectTrigger>
                         <SelectContent>
-                          {categories.map((category) => (
+                          {listingCategories.map((category) => (
                             <SelectItem
                               key={category.value}
                               value={category.value}

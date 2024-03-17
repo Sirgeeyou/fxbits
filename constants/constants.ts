@@ -6,12 +6,28 @@ const categories: FilterOptions[] = [
     name: "Cabins",
     value: "cabins",
   },
-  { name: "Mansions", value: "mansions" },
+  { name: "Chalet", value: "chalet" },
+  { name: "Condo", value: "condo" },
   { name: "Cottages", value: "cottages" },
+  { name: "Countryside", value: "countryside" },
+  { name: "Lodge", value: "lodge" },
+  { name: "Mansions", value: "mansions" },
   { name: "Mobile", value: "mobile" },
   { name: "Modern", value: "modern" },
-  { name: "Lodge", value: "lodge" },
+];
+export const listingCategories: FilterOptions[] = [
+  {
+    name: "Cabins",
+    value: "cabins",
+  },
   { name: "Chalet", value: "chalet" },
+  { name: "Cottages", value: "cottages" },
+  { name: "Condo", value: "condo" },
+  { name: "Countryside", value: "countryside" },
+  { name: "Lodge", value: "lodge" },
+  { name: "Mansions", value: "mansions" },
+  { name: "Mobile", value: "mobile" },
+  { name: "Modern", value: "modern" },
 ];
 
 export const themes: IThemes[] = [

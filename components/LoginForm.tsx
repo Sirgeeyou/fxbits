@@ -65,6 +65,7 @@ export function LoginForm() {
     } catch (error) {
       console.error("An error occurred:", error);
       toast({
+        variant: "destructive",
         title: "An unexpected error has occured",
         description: "Please try again later.",
       });

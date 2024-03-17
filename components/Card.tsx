@@ -17,9 +17,9 @@ export function ProductCard({ listingData }: { listingData: Listing }) {
         <CardBody className="group/card relative size-auto  rounded-xl border border-black/[0.1] bg-gray-50 p-6  dark:border-border dark:bg-card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] sm:w-[30rem]  ">
           <CardItem
             translateZ="50"
-            className="text-2xl font-bold text-neutral-600 dark:text-primary"
+            className=" text-2xl font-bold text-neutral-600 dark:text-primary"
           >
-            <span>{listingData.title}</span>
+            <span className="line-clamp-1">{listingData.title}</span>
           </CardItem>
           <CardItem
             as="p"
