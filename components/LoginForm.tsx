@@ -17,6 +17,7 @@ import {
 import { useRouter } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
 import { useToast } from "./ui/use-toast";
+import Link from "next/link";
 
 export function LoginForm() {
   const router = useRouter();
@@ -26,7 +27,7 @@ export function LoginForm() {
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
     defaultValues: {
-      email: "test@email.com",
+      email: "",
       password: "",
     },
   });
@@ -49,7 +50,7 @@ export function LoginForm() {
         // Use the router to navigate to a different page
         router.push("/"); // Replace with your desired URL
         toast({
-          variant: "success",
+          variant: "default",
           description: "You have successfuly logged in.",
         });
       } else {
@@ -70,13 +71,12 @@ export function LoginForm() {
     }
   }
   return (
-    <div className="mx-auto w-full max-w-md rounded-none bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
+    <div className="mx-auto w-full max-w-md rounded-none bg-white p-4 shadow-input dark:bg-background md:rounded-2xl md:p-8">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-        Welcome to Aceternity
+        Welcome to WorldwideRental
       </h2>
       <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-        Login to aceternity if you can because we don&apos;t have a login flow
-        yet
+        Please provide your details for login.
       </p>
 
       <Form {...form}>
@@ -98,7 +98,7 @@ export function LoginForm() {
                       <Input
                         {...field}
                         id="email"
-                        placeholder="projectmayhem@fc.com"
+                        placeholder="Email"
                         type="email"
                       />
                     </FormControl>
@@ -120,7 +120,7 @@ export function LoginForm() {
                       <Input
                         {...field}
                         id="password"
-                        placeholder="password"
+                        placeholder="Password"
                         type="password"
                       />
                     </FormControl>
@@ -130,9 +130,15 @@ export function LoginForm() {
               );
             }}
           />
+          <Link
+            href={"/signtup"}
+            className="mb-3 text-sm text-neutral-100 dark:text-muted-foreground"
+          >
+            Don&apos;t have an account yet? Sign up here!
+          </Link>
 
           <button
-            className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            className="group/btn relative mt-3 block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-blue-900 dark:to-blue-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
           >
             {isLoading ? <LoaderIcon className="animate-spin" /> : "Login →"}

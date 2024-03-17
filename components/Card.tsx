@@ -14,10 +14,10 @@ export function ProductCard({ listingData }: { listingData: Listing }) {
       className="cursor-pointer"
     >
       <CardContainer className="my-8 h-64 w-[310px]">
-        <CardBody className="group/card relative size-auto  rounded-xl border border-black/[0.1] bg-gray-50 p-6 dark:border-white/[0.2] dark:bg-card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] sm:w-[30rem]  ">
+        <CardBody className="group/card relative size-auto  rounded-xl border border-black/[0.1] bg-gray-50 p-6  dark:border-border dark:bg-card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] sm:w-[30rem]  ">
           <CardItem
             translateZ="50"
-            className="text-2xl font-bold text-neutral-600 dark:text-white"
+            className="text-2xl font-bold text-neutral-600 dark:text-primary"
           >
             <span>{listingData.title}</span>
           </CardItem>
@@ -50,7 +50,7 @@ export function ProductCard({ listingData }: { listingData: Listing }) {
             <CardItem
               as="button"
               translateZ={20}
-              className="rounded-xl bg-black px-4 py-2 text-xs font-bold text-white dark:bg-white dark:text-black"
+              className="rounded-xl bg-black px-4 py-2 text-xs font-bold text-white dark:bg-primary dark:text-black"
             >
               Sign up
             </CardItem>

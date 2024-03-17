@@ -1,7 +1,7 @@
 import { filterListings } from "@/services/filterListings";
 import { SearchParamsProps } from "@/types/types";
 import BackgroundBoxes from "@/components/BackgroundBoxes";
-import { InfiniteMovingCardsDemo } from "@/components/MovingDiv";
+import { MovingDiv } from "@/components/MovingDiv";
 import SearchBar from "@/components/SearchBar";
 import Filter from "@/components/Filter";
 import "../global.css";
@@ -19,17 +19,15 @@ export default async function Home({ searchParams }: SearchParamsProps) {
     <>
       <BackgroundBoxes />
 
-      <div>
-        <InfiniteMovingCardsDemo />
-      </div>
+      <MovingDiv />
 
-      <div className="mx-auto mt-40 max-w-7xl">
+      <div className="mx-auto max-w-7xl">
         <h1 className="mb-10 text-start text-xl font-bold text-primary dark:text-primary md:text-4xl">
           Products
         </h1>
         <div className=" flex max-w-[500px] flex-col-reverse items-start gap-5 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-2 pb-2">
-            <p className="text-sm text-muted-foreground">Apply a filter</p>
+            <p className="text-base text-muted-foreground">Apply a filter</p>
             <Filter />
           </div>
           <SearchBar />

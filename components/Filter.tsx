@@ -30,7 +30,9 @@ export default function Filter() {
   return (
     <Select onValueChange={(value) => handleUpdateParams(value)}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select" className="text-muted-foreground" />
+        <div className="text-stone-800 dark:text-stone-100">
+          <SelectValue placeholder="Select" />
+        </div>
       </SelectTrigger>
       <SelectContent>
         {categories.map((category) => (

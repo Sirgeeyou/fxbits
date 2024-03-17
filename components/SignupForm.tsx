@@ -3,7 +3,6 @@ import React from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/signup-form";
 import { cn } from "@/utils/cn";
-import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,6 +16,7 @@ import {
 } from "./ui/shad-form";
 import { useRouter } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
+import Link from "next/link";
 
 export function SignupForm() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export function SignupForm() {
   const form = useForm<z.infer<typeof SignupFormSchema>>({
     resolver: zodResolver(SignupFormSchema),
     defaultValues: {
-      email: "test@email.com",
+      email: "",
       password: "",
       confirm: "",
     },
@@ -59,13 +59,12 @@ export function SignupForm() {
     }
   }
   return (
-    <div className="mx-auto w-full max-w-md rounded-none bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
+    <div className="mx-auto w-full max-w-md rounded-none bg-white p-4 shadow-input dark:bg-background md:rounded-2xl md:p-8">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-        Welcome to Aceternity
+        Welcome to WorldwideRental
       </h2>
       <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-        Login to aceternity if you can because we don&apos;t have a login flow
-        yet
+        Please provide your details for signing up.
       </p>
 
       <Form {...form}>
@@ -82,12 +81,12 @@ export function SignupForm() {
               return (
                 <FormItem>
                   <LabelInputContainer className="mb-4">
-                    <Label htmlFor="email">Email Address</Label>
+                    <Label htmlFor="email">Email</Label>
                     <FormControl>
                       <Input
                         {...field}
                         id="email"
-                        placeholder="projectmayhem@fc.com"
+                        placeholder="Email"
                         type="email"
                       />
                     </FormControl>
@@ -109,7 +108,7 @@ export function SignupForm() {
                       <Input
                         {...field}
                         id="password"
-                        placeholder="password"
+                        placeholder="Password"
                         type="password"
                       />
                     </FormControl>
@@ -132,7 +131,7 @@ export function SignupForm() {
                       <Input
                         {...field}
                         id="confirm"
-                        placeholder="password"
+                        placeholder="Confirm Password"
                         type="password"
                       />
                     </FormControl>
@@ -142,45 +141,20 @@ export function SignupForm() {
               );
             }}
           />
+          <Link
+            href={"/login"}
+            className="mb-3 text-sm text-neutral-100 dark:text-muted-foreground"
+          >
+            Already have an account? Login here!
+          </Link>
 
           <button
-            className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            className="group/btn relative mt-3 block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-blue-900 dark:to-blue-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
           >
             {isLoading ? <LoaderIcon className="animate-spin" /> : "Sign up →"}
+            <BottomGradient />
           </button>
-          <BottomGradient />
-
-          <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
-
-          <div className="flex flex-col space-y-4">
-            <button
-              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <IconBrandGithub className="size-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                GitHub
-              </span>
-              <BottomGradient />
-            </button>
-            <button
-              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <IconBrandGoogle className="size-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                Google
-              </span>
-              <BottomGradient />
-            </button>
-            <button
-              className=" group/btn relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <BottomGradient />
-            </button>
-          </div>
         </form>
       </Form>
     </div>

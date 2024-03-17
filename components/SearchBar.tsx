@@ -54,8 +54,7 @@ export default function SearchBar() {
         First name
       </Label>
       <Input
-        id="firstname"
-        placeholder="Tyler"
+        placeholder="Search..."
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}

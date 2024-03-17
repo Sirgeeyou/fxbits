@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 
-export function InfiniteMovingCardsDemo() {
+export function MovingDiv() {
   return (
-    <div className="dark:bg-grid-white/[0.05] relative flex h-[40rem] flex-col items-center justify-center overflow-hidden rounded-md bg-white antialiased dark:bg-black">
+    <div className="dark:bg-grid-white/[0.05] relative flex h-[40rem] flex-col items-center justify-center overflow-hidden rounded-md bg-white antialiased dark:bg-background">
       <InfiniteMovingCards
         items={testimonials}
         direction="right"
@@ -18,31 +17,26 @@ export function InfiniteMovingCardsDemo() {
 const testimonials = [
   {
     quote:
-      "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
-    name: "Charles Dickens",
-    title: "A Tale of Two Cities",
+      "WordWideRental Network is a traveler's dream. Their vast selection of properties worldwide, coupled with a user-friendly platform, made booking a breeze. My recent stay exceeded expectations, offering not just accommodation but an authentic cultural experience.",
+    name: "Sarah Thompson, Travel Enthusiast",
+    title: "Seamless Global Escapes",
   },
   {
     quote:
-      "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
-    name: "William Shakespeare",
-    title: "Hamlet",
-  },
-  {
-    quote: "All that we see or seem is but a dream within a dream.",
-    name: "Edgar Allan Poe",
-    title: "A Dream Within a Dream",
+      "This service offers diverse accommodations for every traveler. Their commitment to quality and reliability ensures a seamless stay, whether it's a romantic getaway or a family adventure. Booking with them guarantees memorable vacations.",
+    name: "David Kim, Jetsetter and Blogger",
+    title: "Tailored Travel Experiences",
   },
   {
     quote:
-      "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
-    name: "Jane Austen",
-    title: "Pride and Prejudice",
+      "This company has transformed the way I explore the world. Their curated rentals offer authenticity and immersion in every destination. From rustic farmhouses to traditional ryokans, each stay tells a unique story, enriching my travels.",
+    name: "Emily Rodriguez, Adventurer and Photographer",
+    title: "Authentic Adventures Await",
   },
   {
     quote:
-      "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
-    name: "Herman Melville",
-    title: "Moby-Dick",
+      "o, squad! So, I just stumbled upon this lit website called WorldWideRental Network, and let me tell ya, it's fire! They hooked me up with the sickest pads all over the globe. From beachfront bungalows to urban cribs with skyline views, they got it all. Booking was smoother than my morning coffee run, and the digs? A++ vibes, fam. If you're all about living that wanderlust life without breaking the bank, hit up WorldWideRental Network. Trust me, your 'gram game will thank you.",
+    name: "Wanderlust Willy, Adventure Enthusiast",
+    title: "Globetrotter Guru: WorldWideRental Network Review",
   },
 ];

@@ -31,20 +31,22 @@ export default function Pagination({ pageNumber, isNext }: Props) {
       <button
         disabled={pageNumber === 1}
         onClick={() => handleNavigation("prev")}
-        className="group/btn relative  flex h-10 w-[100px] items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+        className="group/btn relative  flex h-10 w-[100px] items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-background dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
       >
-        <p className="text-sm text-neutral-700 dark:text-neutral-300">Prev</p>
+        <p className=" text-neutral-700 dark:text-primary">Prev</p>
         <BottomGradient />
       </button>
-      <div className="flex h-10 w-[100px] items-center justify-center rounded-md bg-gray-50 font-medium text-black shadow-input dark:bg-zinc-900 dark:text-white dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]">
-        <p>{pageNumber}</p>
+      <div className="flex h-10 w-[100px] items-center justify-center rounded-md bg-gray-50 font-medium text-black shadow-input dark:bg-background dark:text-white dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]">
+        <p className="text-lg text-primary">{pageNumber}</p>
       </div>
       <button
         disabled={!isNext}
         onClick={() => handleNavigation("next")}
-        className="group/btn relative flex h-10 w-[100px] items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+        className="group/btn relative flex h-10 w-[100px] items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black shadow-input dark:bg-background dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
       >
-        <p className="text-sm text-neutral-700 dark:text-neutral-300">Next</p>
+        <p className="text-neutral-700 dark:bg-background dark:text-primary">
+          Next
+        </p>
         <BottomGradient />
       </button>
     </div>

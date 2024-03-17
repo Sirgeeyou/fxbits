@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 
 export default function BackgroundBoxes() {
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-slate-900">
-      <div className="pointer-events-none absolute inset-0 z-20 size-full bg-slate-900 [mask-image:radial-gradient(transparent,white)]" />
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded bg-slate-900">
+      <div className="pointer-events-none absolute inset-0 z-20 size-full bg-background [mask-image:radial-gradient(transparent,white)]" />
 
       <Boxes />
 
